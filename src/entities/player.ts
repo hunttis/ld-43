@@ -18,7 +18,6 @@ export class Player {
     this.shootKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.SPACE);
     this.cursors = scene.input.keyboard.createCursorKeys();
     this.physicsImage.setPipeline('Light2D');
-    this.bulletGroup = scene.add.group()
   }
 
   update() {
