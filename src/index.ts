@@ -12,7 +12,7 @@ class InitScene extends Scene {
     for (const [name, path] of Object.entries(assets)) {
       this.load.image(name, path as string);
     }
-    this.load.image('player', [playerImage, playerNormalmap]);
+    this.load.image('player', [playerImage as string, playerNormalmap as string]);
     for (const [name, path] of Object.entries(jsonAssets)) {
       this.load.tilemapTiledJSON(name, path as string);
       console.log('loaded', path, '->', name);
