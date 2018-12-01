@@ -1,8 +1,7 @@
-import { Scene, GameObjects, Input, Physics } from 'phaser';
+import { Scene, GameObjects, Input } from 'phaser';
 import { Player } from '~/entities/player';
-
-const Sprite = GameObjects.Sprite;
-type Sprite = GameObjects.Sprite;
+import { MeleeEnemy } from '~/entities/meleeenemy';
+import { EnemySlash } from '~/entities/enemyslash';
 
 export class GameScene extends Scene {
 
@@ -11,6 +10,8 @@ export class GameScene extends Scene {
   bullets!: GameObjects.Group;
   cursors!: Input.Keyboard.CursorKeys;
   layer!: Phaser.Tilemaps.StaticTilemapLayer;
+  enemy!: MeleeEnemy;
+  enemyBullets!: GameObjects.Group;
 
   constructor() {
     super('GameScene');
@@ -20,13 +21,22 @@ export class GameScene extends Scene {
     this.createBackground();
     this.level = this.loadAndCreateMap();
     this.bullets = this.add.group();
+    this.enemyBullets = this.add.group();
     this.player = new Player(this, this.bullets);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.cameras.main.startFollow(this.player.physicsImage);
     this.cameras.main.setBounds(0, 0, Number(this.layer.width), Number(this.layer.height));
-    this.physics.add.collider(this.player.physicsImage, this.layer);
     const light = this.lights.addLight(Number(this.game.config.width) / 2, 300, 5000);
     this.lights.enable().setAmbientColor(0xaaaaaa);
+    this.enemy = new MeleeEnemy(this);
+    this.physics.add.collider(this.player.physicsImage, this.layer);
+    this.physics.add.collider(this.enemy.physicsImage, this.layer);
+
+    this.physics.add.overlap(this.enemyBullets, this.player.physicsImage, bullet => {
+      const enemyBullet = bullet as EnemySlash;
+      this.player.receiveHit(enemyBullet.getDamage());
+    });
+
   }
 
   createBackground() {
@@ -59,5 +69,10 @@ export class GameScene extends Scene {
     for (const bullet of this.bullets.getChildren()) {
       bullet.update();
     }
+    this.enemy.update();
+
+    this.enemyBullets.getChildren().forEach(bullet => {
+      bullet.update();
+    })
   }
 }

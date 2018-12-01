@@ -56,4 +56,8 @@ export class Player {
     const bullet = new Bullet(this.scene, this.physicsImage, this.direction);
     this.bulletGroup.add(bullet)
   }
+
+  receiveHit(damage: number) {
+    console.log('ouch!');
+  }
 }
