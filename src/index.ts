@@ -42,7 +42,8 @@ const config: GameConfig = {
     default: 'arcade',
     arcade: {
       debug: true,
-      gravity: { y: 100 }
+      gravity: { y: 400 },
+      debugShowStaticBody: true
     },
 
   },
