@@ -4,6 +4,7 @@ import { GameScene } from "~/gameScene";
 export class Bullet extends Physics.Arcade.Sprite {
   scene!: GameScene
   body!: Physics.Arcade.Body
+  damage: number = 10;
 
   constructor(scene: GameScene, parent: GameObjects.Image, direction: number) {
     super(scene, parent.x, parent.y, 'arrow');
@@ -17,5 +18,9 @@ export class Bullet extends Physics.Arcade.Sprite {
     if (this.body.x < 0 || this.body.x > Number(this.scene.layer.width)) {
       this.destroy();
     }
+  }
+
+  getDamage() {
+    return this.damage;
   }
 }

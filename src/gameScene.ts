@@ -2,6 +2,7 @@ import { Scene, GameObjects, Input } from 'phaser';
 import { Player } from '~/entities/player';
 import { MeleeEnemy } from '~/entities/meleeenemy';
 import { EnemySlash } from '~/entities/enemyslash';
+import { Bullet } from './entities/bullet';
 
 export class GameScene extends Scene {
 
@@ -39,6 +40,11 @@ export class GameScene extends Scene {
     this.physics.add.overlap(this.enemyBullets, this.player.physicsImage, bullet => {
       const enemyBullet = bullet as EnemySlash;
       this.player.receiveHit(enemyBullet.getDamage());
+    });
+
+    this.physics.add.overlap(this.bullets, this.enemy.physicsImage, bullet => {
+      const playerBullet = bullet as Bullet;
+      this.enemy.receiveHit(playerBullet.getDamage());
     });
 
   }

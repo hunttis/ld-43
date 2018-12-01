@@ -37,4 +37,8 @@ export class MeleeEnemy {
     this.scene.enemyBullets.add(slash);
   }
 
+  receiveHit(damage: number) {
+    console.log("Aarrr");
+  }
+
 }
