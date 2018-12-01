@@ -28,5 +28,4 @@ export class EnemySlash extends Physics.Arcade.Sprite {
   getDamage() {
     return 1;
   }
-
 }
