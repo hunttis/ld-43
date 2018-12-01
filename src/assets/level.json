@@ -6,6 +6,14 @@
          "height":20,
          "name":"foreground",
          "opacity":1,
+         "properties":
+            {
+             "collides":true
+            },
+         "propertytypes":
+            {
+             "collides":"bool"
+            },
          "type":"tilelayer",
          "visible":true,
          "width":80,
@@ -30,10 +38,128 @@
          "terrains":[
                 {
                  "name":"platforms",
+                 "properties":
+                    {
+                     "collides":true
+                    },
+                 "propertytypes":
+                    {
+                     "collides":"bool"
+                    },
                  "tile":13
                 }],
          "tilecount":32,
          "tileheight":32,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "collides":true
+                },
+             "1":
+                {
+                 "collides":true
+                },
+             "10":
+                {
+                 "collides":true
+                },
+             "11":
+                {
+                 "collides":true
+                },
+             "12":
+                {
+                 "collides":true
+                },
+             "16":
+                {
+                 "collides":true
+                },
+             "17":
+                {
+                 "collides":true
+                },
+             "18":
+                {
+                 "collides":true
+                },
+             "2":
+                {
+                 "collides":true
+                },
+             "3":
+                {
+                 "collides":true
+                },
+             "4":
+                {
+                 "collides":true
+                },
+             "8":
+                {
+                 "collides":true
+                },
+             "9":
+                {
+                 "collides":true
+                }
+            },
+         "tilepropertytypes":
+            {
+             "0":
+                {
+                 "collides":"bool"
+                },
+             "1":
+                {
+                 "collides":"bool"
+                },
+             "10":
+                {
+                 "collides":"bool"
+                },
+             "11":
+                {
+                 "collides":"bool"
+                },
+             "12":
+                {
+                 "collides":"bool"
+                },
+             "16":
+                {
+                 "collides":"bool"
+                },
+             "17":
+                {
+                 "collides":"bool"
+                },
+             "18":
+                {
+                 "collides":"bool"
+                },
+             "2":
+                {
+                 "collides":"bool"
+                },
+             "3":
+                {
+                 "collides":"bool"
+                },
+             "4":
+                {
+                 "collides":"bool"
+                },
+             "8":
+                {
+                 "collides":"bool"
+                },
+             "9":
+                {
+                 "collides":"bool"
+                }
+            },
          "tiles":
             {
              "0":

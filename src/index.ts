@@ -39,9 +39,9 @@ const config: GameConfig = {
     antialias: false
   },
   physics: {
-    default: 'impact',
+    default: 'matter',
     impact: {
-      gravity: 400
+      debug: true
     }
   },
   scene: [InitScene, MenuScene, GameScene],
