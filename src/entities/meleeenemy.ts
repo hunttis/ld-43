@@ -2,22 +2,23 @@ import { Physics, Scene, Input } from 'phaser';
 import { GameScene } from '~/gameScene'
 import { EnemySlash } from './enemyslash';
 
-export class MeleeEnemy {
-  physicsImage: Physics.Arcade.Image;
+export class MeleeEnemy extends Physics.Arcade.Sprite {
+  scene!: GameScene;
   seesPlayer: boolean = false;
   slashCooldown: number = 0;
   maxSlashcooldown: number = 2000;
   facing!: integer;
 
-  constructor(private scene: GameScene) {
-    this.physicsImage = scene.physics.add.image(500, 500, 'player');
-    this.physicsImage.tint = 0xff0000;
-    this.physicsImage.setPipeline('Light2D');
+  constructor(scene: GameScene) {
+    super(scene, 500, 500, 'player');
+    scene.physics.world.enableBody(this, 0);
+    this.tint = 0xff0000;
+    this.setPipeline('Light2D');
   }
 
   update() {
-    const { x, y } = this.physicsImage;
-    const { x: playerX, y: playerY } = this.scene.player.physicsImage;
+    const { x, y } = this;
+    const { x: playerX, y: playerY } = this.scene.player;
     const distanceToPlayer = Phaser.Math.Distance.Between(x, y, playerX, playerY);
     if (this.slashCooldown >= 0) {
       this.slashCooldown -= this.scene.sys.game.loop.delta;
@@ -31,8 +32,8 @@ export class MeleeEnemy {
   }
 
   slash() {
-    const direction = this.scene.player.physicsImage.x < this.physicsImage.x ? -1 : 1;
-    const slash = new EnemySlash(this.scene, this.physicsImage.x, this.physicsImage.y, direction);
+    const direction = this.scene.player.x < this.x ? -1 : 1;
+    const slash = new EnemySlash(this.scene, this.x, this.y, direction);
     this.scene.add.existing(slash);
     this.scene.enemyBullets.add(slash);
   }

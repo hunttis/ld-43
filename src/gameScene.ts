@@ -24,25 +24,27 @@ export class GameScene extends Scene {
     this.bullets = this.add.group();
     this.enemyBullets = this.add.group();
     this.player = new Player(this, this.bullets);
+    this.add.existing(this.player);
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.cameras.main.startFollow(this.player.physicsImage);
+    this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(0, 0, Number(this.layer.width), Number(this.layer.height));
-    this.physics.add.collider(this.player.physicsImage, this.layer);
+    this.physics.add.collider(this.player, this.layer);
     this.physics.add.collider(this.bullets, this.layer, bullet => {
       bullet.destroy();
     });
     const light = this.lights.addLight(Number(this.game.config.width) / 2, 300, 5000);
     this.lights.enable().setAmbientColor(0xaaaaaa);
     this.enemy = new MeleeEnemy(this);
-    this.physics.add.collider(this.player.physicsImage, this.layer);
-    this.physics.add.collider(this.enemy.physicsImage, this.layer);
+    this.add.existing(this.enemy);
+    this.physics.add.collider(this.player, this.layer);
+    this.physics.add.collider(this.enemy, this.layer);
 
-    this.physics.add.overlap(this.enemyBullets, this.player.physicsImage, bullet => {
+    this.physics.add.overlap(this.enemyBullets, this.player, bullet => {
       const enemyBullet = bullet as EnemySlash;
       this.player.receiveHit(enemyBullet.getDamage());
     });
 
-    this.physics.add.overlap(this.bullets, this.enemy.physicsImage, bullet => {
+    this.physics.add.overlap(this.bullets, this.enemy, bullet => {
       const playerBullet = bullet as Bullet;
       this.enemy.receiveHit(playerBullet.getDamage());
     });
