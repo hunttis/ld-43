@@ -39,10 +39,12 @@ const config: GameConfig = {
     antialias: false
   },
   physics: {
-    default: 'matter',
-    impact: {
-      debug: true
-    }
+    default: 'arcade',
+    arcade: {
+      debug: true,
+      gravity: { y: 100 }
+    },
+
   },
   scene: [InitScene, MenuScene, GameScene],
   plugins: {
