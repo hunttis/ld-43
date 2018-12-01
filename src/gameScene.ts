@@ -19,7 +19,7 @@ export class GameScene extends Scene {
 
   create() {
     this.level = this.loadAndCreateMap();
-    this.player = this.createPlayer();
+    this.player = new Player(this);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.cameras.main.startFollow(this.player.physicsImage);
     this.debugGraphics = this.add.graphics();
@@ -40,11 +40,6 @@ export class GameScene extends Scene {
     layer.depth = 100;
     this.layer = layer;
     return map;
-  }
-
-  createPlayer(): Player {
-    const player = new Player(this);
-    return player;
   }
 
   update() {
