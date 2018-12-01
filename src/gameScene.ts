@@ -16,6 +16,7 @@ export class GameScene extends Scene {
   }
 
   create() {
+    this.createBackground();
     this.level = this.loadAndCreateMap();
     this.player = new Player(this);
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -24,6 +25,15 @@ export class GameScene extends Scene {
     this.physics.add.collider(this.player.physicsImage, this.layer);
     const light = this.lights.addLight(Number(this.game.config.width) / 2, 300, 5000);
     this.lights.enable().setAmbientColor(0xaaaaaa);
+  }
+
+  createBackground() {
+    var graphics = this.add.graphics();
+
+    graphics.fillGradientStyle(0x5ffaff, 0x56faff, 0x5555ff, 0x5555ff, 1);
+    graphics.fillRect(0, 0, Number(this.game.config.width), Number(this.game.config.height));
+    graphics.setScrollFactor(0);
+
   }
 
   loadAndCreateMap() {
