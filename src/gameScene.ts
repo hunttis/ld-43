@@ -22,6 +22,7 @@ export class GameScene extends Scene {
     this.player = new Player(this);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.cameras.main.startFollow(this.player.physicsImage);
+    this.cameras.main.setBounds(0, 0, Number(this.layer.width), Number(this.layer.height));
     this.debugGraphics = this.add.graphics();
     this.physics.add.collider(this.player.physicsImage, this.layer);
     const light = this.lights.addLight(Number(this.game.config.width) / 2, 300, 5000);
