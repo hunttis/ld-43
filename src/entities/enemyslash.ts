@@ -20,14 +20,13 @@ export class EnemySlash extends Physics.Arcade.Sprite {
   update() {
     this.lifetime -= this.scene.sys.game.loop.delta;
 
-    if (this.lifetime < 0 || this.readyToDestroy) {
+    if (this.lifetime < 0) {
       this.destroy();
     }
   }
 
   getDamage() {
-    this.readyToDestroy = true;
-    return 10;
+    return 1;
   }
 
 }
