@@ -8,6 +8,7 @@ export class GameScene extends Scene {
 
   level!: Phaser.Tilemaps.Tilemap;
   player!: Player;
+  bullets!: GameObjects.Group;
   cursors!: Input.Keyboard.CursorKeys;
   layer!: Phaser.Tilemaps.StaticTilemapLayer;
 
@@ -18,7 +19,8 @@ export class GameScene extends Scene {
   create() {
     this.createBackground();
     this.level = this.loadAndCreateMap();
-    this.player = new Player(this);
+    this.bullets = this.add.group();
+    this.player = new Player(this, this.bullets);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.cameras.main.startFollow(this.player.physicsImage);
     this.cameras.main.setBounds(0, 0, Number(this.layer.width), Number(this.layer.height));
