@@ -53,6 +53,7 @@ export class Player {
 
   shoot() {
     const bullet = new Bullet(this.scene, this.physicsImage, this.direction);
-    this.bulletGroup.add(bullet)
+    this.bulletGroup.add(bullet);
+    this.scene.add.existing(bullet);
   }
 }

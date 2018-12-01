@@ -25,6 +25,9 @@ export class GameScene extends Scene {
     this.cameras.main.startFollow(this.player.physicsImage);
     this.cameras.main.setBounds(0, 0, Number(this.layer.width), Number(this.layer.height));
     this.physics.add.collider(this.player.physicsImage, this.layer);
+    this.physics.add.collider(this.bullets, this.layer, bullet => {
+      bullet.destroy();
+    });
     const light = this.lights.addLight(Number(this.game.config.width) / 2, 300, 5000);
     this.lights.enable().setAmbientColor(0xaaaaaa);
   }
