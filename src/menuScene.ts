@@ -10,7 +10,7 @@ export class MenuScene extends Scene {
     this.add.text(100, 200, 'Klik bare to beggin');
     const sprite = this.add.sprite(400, 300, 'bear').setInteractive();
 
-    sprite.on('pointerdown', (pointer: any) => {
+    sprite.on('pointerdown', () => {
       this.scene.start('GameScene');
     });
   }
