@@ -3,6 +3,7 @@ import * as assets from './assets/*.png';
 import * as jsonAssets from './assets/*.json';
 import { MenuScene } from './menuScene';
 import { GameScene } from './gameScene';
+import { StoryScene } from './storyScene';
 import GameScalePlugin from 'phaser-plugin-game-scale';
 import playerImage from './assets/player/player.png';
 import playerNormalmap from './assets/player/player_n.png';
@@ -10,6 +11,7 @@ import playerNormalmap from './assets/player/player_n.png';
 class InitScene extends Scene {
   preload() {
     for (const [name, path] of Object.entries(assets)) {
+      console.log('loaded', path, '->', name);
       this.load.image(name, path as string);
     }
     this.load.image('player', [playerImage as string, playerNormalmap as string]);
@@ -50,7 +52,7 @@ const config: GameConfig = {
     },
 
   },
-  scene: [InitScene, MenuScene, GameScene],
+  scene: [InitScene, MenuScene, GameScene, StoryScene],
   plugins: {
     global: [gameScalePlugin]
   }
