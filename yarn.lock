@@ -3317,10 +3317,24 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+phaser-plugin-game-scale@^1.3.1:
+  version "1.3.1"
+  resolved "https://barona.jfrog.io/barona/api/npm/npm/phaser-plugin-game-scale/-/phaser-plugin-game-scale-1.3.1.tgz#1d610a4d09370aba54053641d20c15927f7b6413"
+  integrity sha1-HWEKTQk3CrpUBTZB0gwVkn97ZBM=
+  dependencies:
+    phaser "^3.15.1"
+
 phaser@^3.14.0:
   version "3.14.0"
   resolved "https://registry.yarnpkg.com/phaser/-/phaser-3.14.0.tgz#af1fb05a1febad9bfef402f3987e0b4340d7abd2"
   integrity sha512-U3vnzq6wOsCWHRaQ6Stdesic9CZUlanl9oAAmDvcx12QWLFZW4L/eT2QJ/pVCOSgayVdrhXpVU/J7pdLTOWwTQ==
+  dependencies:
+    eventemitter3 "^3.1.0"
+
+phaser@^3.15.1:
+  version "3.15.1"
+  resolved "https://barona.jfrog.io/barona/api/npm/npm/phaser/-/phaser-3.15.1.tgz#17d41fb5b310fb062952e29d9bb26a99c90d3a44"
+  integrity sha1-F9QftbMQ+wYpUuKdm7JqmckNOkQ=
   dependencies:
     eventemitter3 "^3.1.0"
 

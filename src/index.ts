@@ -2,6 +2,7 @@ import { Game, AUTO, Scene } from 'phaser';
 import * as assets from './assets/*.png';
 import { MenuScene } from './menuScene';
 import { GameScene } from './gameScene';
+import GameScalePlugin from 'phaser-plugin-game-scale';
 
 class InitScene extends Scene {
   preload() {
@@ -15,18 +16,32 @@ class InitScene extends Scene {
   }
 }
 
-const config = {
+const gameScalePgin: PluginObject = {
+  global: [{
+    key: 'GameScalePlugin',
+    plugin: GameScalePlugin,
+    mapping: 'gameScale',
+    data: {/* See 'Configuration'*/ }
+  }]
+}
+
+const config: GameConfig = {
   type: AUTO,
   width: 800,
-  height: 600,
+  height: 400,
   parent: 'game-container',
-  physics: {
-    default: 'arcade',
-    arcade: {
-      gravity: { y: 200 }
-    }
+  render: {
+    antialias: false
   },
-  scene: [InitScene, MenuScene, GameScene]
+  physics: {
+    default: 'impact',
+    impact: {
+      gravity: 400
+    }
+
+  },
+  scene: [InitScene, MenuScene, GameScene],
+  plugins: gameScalePgin,
 };
 
 if (module.hot) {
