@@ -1,5 +1,6 @@
 import { Game, AUTO, Scene } from 'phaser';
 import * as assets from './assets/*.png';
+import * as jsonAssets from './assets/*.json';
 import { MenuScene } from './menuScene';
 import { GameScene } from './gameScene';
 import GameScalePlugin from 'phaser-plugin-game-scale';
@@ -8,6 +9,10 @@ class InitScene extends Scene {
   preload() {
     for (const [name, path] of Object.entries(assets)) {
       this.load.image(name, path as string);
+    }
+    for (const [name, path] of Object.entries(jsonAssets)) {
+      this.load.tilemapTiledJSON(name, path as string);
+      console.log('loaded', path, '->', name);
     }
   }
 
@@ -46,7 +51,7 @@ const config: GameConfig = {
 };
 
 if (module.hot) {
-  module.hot.dispose(function() {
+  module.hot.dispose(function () {
     window.location.reload();
   });
 }
