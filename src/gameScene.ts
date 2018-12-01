@@ -1,12 +1,13 @@
 import { Scene, GameObjects, Input, Physics } from 'phaser';
-import { platform } from 'os';
+import { Player } from '~/player';
+
 const Sprite = GameObjects.Sprite;
 type Sprite = GameObjects.Sprite;
 
 export class GameScene extends Scene {
 
   level!: Phaser.Tilemaps.Tilemap;
-  player!: Physics.Arcade.Image;
+  player!: Player;
   cursors!: Input.Keyboard.CursorKeys;
   layer!: Phaser.Tilemaps.StaticTilemapLayer;
   debugGraphics!: any;
@@ -19,11 +20,10 @@ export class GameScene extends Scene {
   create() {
     this.level = this.loadAndCreateMap();
     this.player = this.createPlayer();
-    this.add.existing(this.player);
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.cameras.main.startFollow(this.player);
+    this.cameras.main.startFollow(this.player.physicsImage);
     this.debugGraphics = this.add.graphics();
-    this.physics.add.collider(this.player, this.layer);
+    this.physics.add.collider(this.player.physicsImage, this.layer);
   }
 
   loadAndCreateMap() {
@@ -42,25 +42,12 @@ export class GameScene extends Scene {
     return map;
   }
 
-  createPlayer(): Physics.Arcade.Image {
-    const player = this.physics.add.image(100, 100, 'player');
+  createPlayer(): Player {
+    const player = new Player(this);
     return player;
   }
 
   update() {
-    if (this.cursors.left!.isDown) {
-      this.player.setVelocityX(-100);
-    } else if (this.cursors.right!.isDown) {
-      this.player.setVelocityX(100);
-    } else {
-      this.player.setVelocityX(0);
-    }
-
-    if (this.cursors.up!.isDown && this.player.body.onFloor()) {
-      this.player.setVelocityY(-200);
-      this.layer.renderDebug(this.debugGraphics, { tileColor: null });
-
-    }
-
+    this.player.update();
   }
 }
