@@ -1,5 +1,5 @@
 import { Scene, GameObjects, Input, Physics } from 'phaser';
-import { Player } from '~/player';
+import { Player } from '~/entities/player';
 
 const Sprite = GameObjects.Sprite;
 type Sprite = GameObjects.Sprite;
@@ -22,6 +22,7 @@ export class GameScene extends Scene {
     this.player = new Player(this);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.cameras.main.startFollow(this.player.physicsImage);
+    this.cameras.main.setBounds(0, 0, Number(this.layer.width), Number(this.layer.height));
     this.cameras.main.setBounds(0, 0, Number(this.layer.width), Number(this.layer.height));
     this.debugGraphics = this.add.graphics();
     this.physics.add.collider(this.player.physicsImage, this.layer);
