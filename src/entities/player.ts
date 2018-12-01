@@ -18,7 +18,6 @@ export class Player {
     this.shootKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.SPACE);
     this.cursors = scene.input.keyboard.createCursorKeys();
     this.physicsImage.setPipeline('Light2D');
-    this.bulletGroup = scene.add.group()
   }
 
   update() {
@@ -54,7 +53,8 @@ export class Player {
 
   shoot() {
     const bullet = new Bullet(this.scene, this.physicsImage, this.direction);
-    this.bulletGroup.add(bullet)
+    this.bulletGroup.add(bullet);
+    this.scene.add.existing(bullet);
   }
 
   receiveHit(damage: number) {
