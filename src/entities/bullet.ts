@@ -8,9 +8,13 @@ export class Bullet extends Physics.Arcade.Sprite {
     scene.physics.world.enableBody(this, 0);
     this.setVelocityX(direction * 300.0);
     this.body.setAllowGravity(false);
+    console.log(Phaser.Math)
   }
 
   update() {
     super.update();
+    if (this.x < 0 || this.x > Number(this.scene.game.config.width)) {
+      this.destroy();
+    }
   }
 }
