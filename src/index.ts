@@ -12,7 +12,7 @@ class InitScene extends Scene {
   }
 
   create() {
-    this.scene.start('MenuScene');
+    this.scene.start('GameScene');
   }
 }
 
