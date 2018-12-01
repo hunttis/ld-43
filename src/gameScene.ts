@@ -1,5 +1,5 @@
 import { Scene, GameObjects, Input, Physics } from 'phaser';
-import { Player } from '~/player';
+import { Player } from '~/entities/player';
 
 const Sprite = GameObjects.Sprite;
 type Sprite = GameObjects.Sprite;
