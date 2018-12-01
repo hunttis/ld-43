@@ -11,6 +11,7 @@ export class Player {
     this.physicsImage = scene.physics.add.image(100, 100, 'player');
     scene.add.existing(this.physicsImage);
     this.cursors = scene.input.keyboard.createCursorKeys();
+    this.physicsImage.setPipeline('Light2D');
   }
 
   update() {

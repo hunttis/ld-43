@@ -24,6 +24,8 @@ export class GameScene extends Scene {
     this.cameras.main.startFollow(this.player.physicsImage);
     this.debugGraphics = this.add.graphics();
     this.physics.add.collider(this.player.physicsImage, this.layer);
+    const light = this.lights.addLight(Number(this.game.config.width) / 2, 300, 5000);
+    this.lights.enable().setAmbientColor(0x555555);
   }
 
   loadAndCreateMap() {

@@ -4,12 +4,15 @@ import * as jsonAssets from './assets/*.json';
 import { MenuScene } from './menuScene';
 import { GameScene } from './gameScene';
 import GameScalePlugin from 'phaser-plugin-game-scale';
+import playerImage from './assets/player/player.png';
+import playerNormalmap from './assets/player/player_n.png';
 
 class InitScene extends Scene {
   preload() {
     for (const [name, path] of Object.entries(assets)) {
       this.load.image(name, path as string);
     }
+    this.load.image('player', [playerImage, playerNormalmap]);
     for (const [name, path] of Object.entries(jsonAssets)) {
       this.load.tilemapTiledJSON(name, path as string);
       console.log('loaded', path, '->', name);
