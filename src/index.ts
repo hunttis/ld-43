@@ -29,6 +29,12 @@ const config = {
   scene: [InitScene, MenuScene, GameScene]
 };
 
+if (module.hot) {
+  module.hot.dispose(function () {
+    window.location.reload();
+  });
+}
+
 const gameContainer = document.getElementById(config.parent)!;
 const game = new Game(config);
 
