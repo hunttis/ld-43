@@ -1,12 +1,16 @@
 import { Scene, GameObjects, Input, Physics } from 'phaser';
+import { platform } from 'os';
 const Sprite = GameObjects.Sprite;
 type Sprite = GameObjects.Sprite;
 
 export class GameScene extends Scene {
 
   level!: Phaser.Tilemaps.Tilemap;
-  player!: Physics.Matter.Image;
-  cursors!: Input.Keyboard.CursorKeys;;
+  player!: Physics.Arcade.Image;
+  cursors!: Input.Keyboard.CursorKeys;
+  layer!: Phaser.Tilemaps.StaticTilemapLayer;
+  debugGraphics!: any;
+
 
   constructor() {
     super('GameScene');
@@ -17,8 +21,9 @@ export class GameScene extends Scene {
     this.player = this.createPlayer();
     this.add.existing(this.player);
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.matter.world.setBounds(0, 0, 800, 600);
     this.cameras.main.startFollow(this.player);
+    this.debugGraphics = this.add.graphics();
+    this.physics.add.collider(this.player, this.layer);
   }
 
   loadAndCreateMap() {
@@ -30,40 +35,31 @@ export class GameScene extends Scene {
       map.tileHeight
     );
 
-    const layer: Phaser.Tilemaps.DynamicTilemapLayer = map.createDynamicLayer('foreground', tileset, 0, 0);
+    const layer = map.createStaticLayer('foreground', tileset, 0, 0);
+    layer.setCollisionByProperty({ collides: true })
     layer.depth = 100;
-
-    for (let y = 0; y < layer.height / tileset.tileHeight; y++) {
-      for (let x = 0; x < layer.width / tileset.tileWidth; x++) {
-
-        const tile = layer.getTileAt(x, y);
-        if (tile) {
-          tile.setCollision(true);
-        }
-      }
-    }
-    // layer.setCollisionByProperty({ collides: true });
-    // layer.setCollisionBetween(1, 19, true, true);
-    this.matter.world.convertTilemapLayer(layer);
-    this.matter.world.createDebugGraphic();
+    this.layer = layer;
     return map;
   }
 
-  createPlayer(): Physics.Matter.Image {
-    const player = this.matter.add.image(100, 100, 'player');
-
+  createPlayer(): Physics.Arcade.Image {
+    const player = this.physics.add.image(100, 100, 'player');
     return player;
   }
 
   update() {
     if (this.cursors.left!.isDown) {
-      this.player.x -= 5;
+      this.player.setVelocityX(-100);
     } else if (this.cursors.right!.isDown) {
-      this.player.x += 5;
+      this.player.setVelocityX(100);
+    } else {
+      this.player.setVelocityX(0);
     }
 
-    if (this.cursors.up!.isDown) {
-      console.log('jump!');
+    if (this.cursors.up!.isDown && this.player.body.onFloor()) {
+      this.player.setVelocityY(-200);
+      this.layer.renderDebug(this.debugGraphics, { tileColor: null });
+
     }
 
   }
