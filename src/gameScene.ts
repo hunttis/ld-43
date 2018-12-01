@@ -56,5 +56,8 @@ export class GameScene extends Scene {
 
   update() {
     this.player.update();
+    for (const bullet of this.bullets.getChildren()) {
+      bullet.update();
+    }
   }
 }
