@@ -4,6 +4,7 @@
     "allowJs": true,
     "baseUrl": ".",
     "module": "esnext",
+    "target": "es5",
     "lib": ["dom", "es2018", "scripthost"],
     "moduleResolution": "node",
     "paths": {

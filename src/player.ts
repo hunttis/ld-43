@@ -3,11 +3,10 @@ import { GameScene } from '~/gameScene'
 
 export class Player {
   physicsImage: Physics.Arcade.Image;
-  cursors!: Input.Keyboard.CursorKeys;
-  scene!: GameScene;
+  cursors: Input.Keyboard.CursorKeys;
+  isJumping: boolean = false;
 
-  constructor(scene: GameScene) {
-    this.scene = scene;
+  constructor(private scene: GameScene) {
     this.physicsImage = scene.physics.add.image(100, 100, 'player');
     scene.add.existing(this.physicsImage);
     this.cursors = scene.input.keyboard.createCursorKeys();
@@ -23,9 +22,13 @@ export class Player {
       this.physicsImage.setVelocityX(0);
     }
 
-    if (this.cursors.up!.isDown && this.physicsImage.body.onFloor()) {
+    if (Input.Keyboard.JustDown(this.cursors.up!) && (this.isOnFloor || this.isJumping)) {
       this.physicsImage.setVelocityY(-200);
-      this.scene.layer.renderDebug(this.scene.debugGraphics, { tileColor: null });
+      this.isJumping = !this.isJumping;
     }
+  }
+
+  get isOnFloor(): boolean {
+    return (this.physicsImage.body as any).onFloor()
   }
 }
