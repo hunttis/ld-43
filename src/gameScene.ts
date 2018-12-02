@@ -84,7 +84,6 @@ export class GameScene extends Scene {
   addObjectsToLevel() {
     for (const layer of this.level.objects) {
       for (const levelobject of layer.objects) {
-        console.log(levelobject.name);
         if (levelobject.name === 'melee') {
           const enemy = new MeleeEnemy(this, levelobject.x + 16, levelobject.y - 16);
           this.add.existing(enemy);
@@ -96,7 +95,7 @@ export class GameScene extends Scene {
           this.enemies.add(enemy);
         }
         if (levelobject.name === 'sign') {
-          const sign = new Sign(this, levelobject.x + 16, levelobject.y - 16, levelobject.properties.text);
+          const sign = new Sign(this, levelobject.x + 16, levelobject.y - 16, levelobject.properties[0].value);
           this.add.existing(sign);
           this.signs.add(sign);
         }
@@ -130,12 +129,10 @@ export class GameScene extends Scene {
       map.tileHeight
     );
 
-
     this.createParallaxLayer(Number(map.heightInPixels) - 180, Number(map.widthInPixels), 0.3, 30, 0xaaaaaa);
     this.createParallaxLayer(Number(map.heightInPixels) - 160, Number(map.widthInPixels), 0.4, 100, 0xCCCCCC);
     this.createParallaxLayer(Number(map.heightInPixels) - 150, Number(map.widthInPixels), 0.5, 0, 0xffffff);
 
-    console.log(map);
 
     const layer = map.createStaticLayer('foreground', tileset, 0, 0);
     layer.setCollisionByProperty({ collides: true })
