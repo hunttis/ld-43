@@ -56,17 +56,26 @@ export class Player extends Physics.Arcade.Sprite {
   }
 
   update() {
-    this.anims.play('playerWalk', true);
+
 
     if (this.cursors.left!.isDown) {
       this.setVelocityX(-100);
       this.direction = LEFT
+      this.flipX = true;
+      this.anims.play('playerWalk', true);
     } else if (this.cursors.right!.isDown) {
       this.setVelocityX(100);
       this.direction = RIGHT
+      this.flipX = false;
+      this.anims.play('playerWalk', true);
     } else {
+      this.anims.play('playerIdle', true);
       this.setVelocityX(0);
     }
+
+
+
+
     if (this.isOnFloor) {
       this.hasDoubleJumped = false;
     }

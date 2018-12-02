@@ -29,12 +29,13 @@ class InitScene extends Scene {
 
     const playerIdle = {
       key: 'playerIdle',
-      frames: this.anims.generateFrameNumbers('player', { frames: [1] }),
+      frames: this.anims.generateFrameNumbers('player', { frames: [0] }),
       frameRate: 1,
     }
+    this.anims.create(playerIdle);
     const playerConfig = {
       key: 'playerWalk',
-      frames: this.anims.generateFrameNumbers('player', { frames: [3, 4, 5, 6, 7, 8] }),
+      frames: this.anims.generateFrameNumbers('player', { frames: [2, 3, 4, 5, 6, 7, 8] }),
       frameRate: 10,
       repeat: -1
     }
