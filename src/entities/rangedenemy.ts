@@ -47,7 +47,6 @@ export class RangedEnemy extends Enemy {
 
   updateBow() {
     this.bowSprite.scaleX = this.facing;
-    //this.bowSprite.setX(this.body.x + 16 + (this.facing * 8));
 
     if (this.hasFired) {
       this.hasFired = false;
