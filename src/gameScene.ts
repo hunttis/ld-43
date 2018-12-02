@@ -4,6 +4,7 @@ import { MeleeEnemy } from '~/entities/meleeenemy';
 import { EnemySlash } from '~/entities/enemyslash';
 import { Bullet } from './entities/bullet';
 import { RangedEnemy } from './entities/rangedenemy';
+import { EnemyAttack } from './entities/enemyAttack';
 
 export class GameScene extends Scene {
 
@@ -46,8 +47,9 @@ export class GameScene extends Scene {
 
     this.physics.add.overlap(this.enemyBullets, this.player, bullet => {
       if (!this.player.shieldUp) {
-        const enemyBullet = bullet as EnemySlash;
+        const enemyBullet = bullet as EnemyAttack;
         this.player.receiveHit(enemyBullet.getDamage());
+        enemyBullet.hitsPlayer();
       }
     });
 

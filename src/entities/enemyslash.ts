@@ -1,7 +1,8 @@
 import { Physics, Scene, Input } from 'phaser';
 import { GameScene } from '~/gameScene';
+import { EnemyAttack } from './enemyAttack';
 
-export class EnemySlash extends Physics.Arcade.Sprite {
+export class EnemySlash extends EnemyAttack {
   lifetime: number;
   body!: Physics.Arcade.Body;
   direction: integer;
@@ -35,4 +36,6 @@ export class EnemySlash extends Physics.Arcade.Sprite {
   getDamage() {
     return 1;
   }
+
+  hitsPlayer(): void { }
 }
