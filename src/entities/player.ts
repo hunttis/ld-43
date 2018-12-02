@@ -152,10 +152,6 @@ export class Player extends Physics.Arcade.Sprite {
       duration: 50,
       alpha: 1
     })
-    /* this.bowSprite.setAngle(0);
-    this.bowSprite.setAlpha(1);
-    this.bowSprite.setVisible(true);
-    this.isFiring = true; */
   }
 
   melee() {
