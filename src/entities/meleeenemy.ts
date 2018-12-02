@@ -38,4 +38,8 @@ export class MeleeEnemy extends Enemy {
     this.scene.enemyBullets.add(slash);
   }
 
+  die(): void {
+    this.destroy();
+  }
+
 }
