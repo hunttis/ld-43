@@ -103,6 +103,11 @@
   </tile>
   <tile id="27" terrain=",,1,1"/>
   <tile id="28" terrain=",,1,1"/>
+  <tile id="32">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="65" source="tiles.tsx"/>
  <tileset firstgid="129" name="bgtiles" tilewidth="32" tileheight="32" tilecount="16" columns="4">

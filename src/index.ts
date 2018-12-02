@@ -27,18 +27,30 @@ class InitScene extends Scene {
   create() {
     this.scene.start('GameScene', { levelNumber: 0 });
 
+    const playerJumping = {
+      key: 'playerJumping',
+      frames: this.anims.generateFrameNumbers('player', { frames: [6] }),
+      frameRate: 1,
+    }
+    const playerFalling = {
+      key: 'playerFalling',
+      frames: this.anims.generateFrameNumbers('player', { frames: [7] }),
+      frameRate: 1,
+    }
     const playerIdle = {
       key: 'playerIdle',
       frames: this.anims.generateFrameNumbers('player', { frames: [0] }),
       frameRate: 1,
     }
-    this.anims.create(playerIdle);
     const playerConfig = {
       key: 'playerWalk',
       frames: this.anims.generateFrameNumbers('player', { frames: [2, 3, 4, 5, 6, 7, 8] }),
       frameRate: 10,
       repeat: -1
     }
+    this.anims.create(playerJumping);
+    this.anims.create(playerFalling);
+    this.anims.create(playerIdle);
     this.anims.create(playerConfig);
   }
 }

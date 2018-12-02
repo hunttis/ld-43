@@ -70,6 +70,12 @@ export class Player extends Physics.Arcade.Sprite {
 
     if (this.isOnFloor) {
       this.hasDoubleJumped = false;
+    } else {
+      if (this.body.velocity.y > 0) {
+        this.anims.play('playerFalling')
+      } else {
+        this.anims.play('playerJumping')
+      }
     }
     if (Input.Keyboard.JustDown(this.cursors.up!) && (this.isOnFloor || this.canDoubleJump)) {
       if (!this.isOnFloor) {

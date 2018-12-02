@@ -165,6 +165,10 @@
                 {
                  "collides":true
                 },
+             "32":
+                {
+                 "collides":true
+                },
              "4":
                 {
                  "collides":true
@@ -241,6 +245,10 @@
                  "collides":"bool"
                 },
              "3":
+                {
+                 "collides":"bool"
+                },
+             "32":
                 {
                  "collides":"bool"
                 },
