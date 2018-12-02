@@ -15,7 +15,7 @@ export class Player extends Physics.Arcade.Sprite {
   meleeKey: Input.Keyboard.Key;
   shieldKey: Input.Keyboard.Key;
 
-  isJumping: boolean = false;
+  hasDoubleJumped: boolean = false;
   meleeCooldown: number = 0;
   shieldUp: boolean = false;
 
@@ -51,9 +51,14 @@ export class Player extends Physics.Arcade.Sprite {
     } else {
       this.setVelocityX(0);
     }
-    if (Input.Keyboard.JustDown(this.cursors.up!) && (this.body.onFloor() || this.canDoubleJump)) {
+    if (this.isOnFloor) {
+      this.hasDoubleJumped = false;
+    }
+    if (Input.Keyboard.JustDown(this.cursors.up!) && (this.isOnFloor || this.canDoubleJump)) {
+      if (!this.isOnFloor) {
+        this.hasDoubleJumped = true;
+      }
       this.setVelocityY(-200);
-      this.isJumping = !this.isJumping;
     }
     if (Input.Keyboard.JustDown(this.shootKey)) {
       this.shoot()
@@ -82,7 +87,7 @@ export class Player extends Physics.Arcade.Sprite {
   }
 
   get canDoubleJump() {
-    return this.doubleJump && this.isJumping
+    return this.doubleJump && !this.hasDoubleJumped
   }
 
   get isOnFloor(): boolean {
