@@ -27,8 +27,8 @@ export class Player extends Physics.Arcade.Sprite {
   direction = RIGHT
   COOLDOWN_MELEE_MAX: number = 500;
 
-  constructor(scene: GameScene, private bulletGroup: GameObjects.Group) {
-    super(scene, 200, 500, 'player');
+  constructor(scene: GameScene, private bulletGroup: GameObjects.Group, entrance: GameObjects.Sprite) {
+    super(scene, entrance.x, entrance.y + 16, 'player');
     scene.physics.world.enableBody(this, 0);
     this.shootKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.SPACE);
     this.meleeKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.Z);

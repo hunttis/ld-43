@@ -16,6 +16,8 @@ export class GameScene extends Scene {
   layer!: Phaser.Tilemaps.StaticTilemapLayer;
   enemies!: GameObjects.Group;
   enemyBullets!: GameObjects.Group;
+  entrance!: GameObjects.Sprite;
+  exit!: GameObjects.Sprite;
 
   constructor() {
     super('GameScene');
@@ -29,7 +31,7 @@ export class GameScene extends Scene {
     this.enemies = this.add.group();
     this.addEnemies();
 
-    this.player = new Player(this, this.bullets);
+    this.player = new Player(this, this.bullets, this.entrance);
     this.add.existing(this.player);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.cameras.main.startFollow(this.player);
@@ -101,6 +103,10 @@ export class GameScene extends Scene {
     layer.setCollisionByProperty({ collides: true })
     layer.depth = 100;
     this.layer = layer;
+
+    this.entrance = map.createFromObjects('entranceexit', 'entrance', { key: 'entrance' })[0];
+    this.exit = map.createFromObjects('entranceexit', 'exit', { key: 'exit' })[0];
+
     return map;
   }
 

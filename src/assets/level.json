@@ -19,8 +19,42 @@
          "width":80,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "name":"entranceexit",
+         "objects":[
+                {
+                 "gid":38,
+                 "height":64,
+                 "id":1,
+                 "name":"entrance",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":224,
+                 "y":544
+                }, 
+                {
+                 "gid":54,
+                 "height":64,
+                 "id":2,
+                 "name":"exit",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":2400,
+                 "y":544
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextobjectid":1,
+ "nextobjectid":5,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.3",
