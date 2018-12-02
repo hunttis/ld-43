@@ -1,7 +1,6 @@
 import { Scene, GameObjects, Input } from 'phaser';
 import { Player } from '~/entities/player';
 import { MeleeEnemy } from '~/entities/meleeenemy';
-import { EnemySlash } from '~/entities/enemyslash';
 import { Bullet } from './entities/bullet';
 import { RangedEnemy } from './entities/rangedenemy';
 import { EnemyAttack } from './entities/enemyAttack';
@@ -42,7 +41,6 @@ export class GameScene extends Scene {
 
     this.physics.add.overlap(this.enemyBullets, this.layer, (bullet, tile) => {
       const attack = bullet as EnemyAttack;
-
       if (tile.collides && attack.doesThisCollideWithLevel()) {
         attack.hitsSomething();
       }
@@ -59,11 +57,9 @@ export class GameScene extends Scene {
     this.physics.add.collider(this.rangedEnemy, this.layer);
 
     this.physics.add.overlap(this.enemyBullets, this.player, bullet => {
-      if (!this.player.shieldUp) {
-        const enemyBullet = bullet as EnemyAttack;
-        this.player.receiveHit(enemyBullet.getDamage());
-        enemyBullet.hitsSomething();
-      }
+      const enemyAttack = bullet as EnemyAttack;
+      this.player.receiveHit(enemyAttack.getDamage());
+      enemyAttack.hitsSomething();
     });
 
     this.physics.add.overlap(this.bullets, this.enemy, bullet => {
@@ -84,7 +80,6 @@ export class GameScene extends Scene {
     graphics.fillGradientStyle(0x5ffaff, 0x56faff, 0x5555ff, 0x5555ff, 1);
     graphics.fillRect(0, 0, Number(this.game.config.width), Number(this.game.config.height));
     graphics.setScrollFactor(0);
-
   }
 
   loadAndCreateMap() {
