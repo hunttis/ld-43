@@ -34,7 +34,7 @@ class InitScene extends Scene {
     }
     const playerConfig = {
       key: 'playerWalk',
-      frames: this.anims.generateFrameNumbers('player', { frames: [3, 4, 5, 6, 7] }),
+      frames: this.anims.generateFrameNumbers('player', { frames: [3, 4, 5, 6, 7, 8] }),
       frameRate: 10,
       repeat: -1
     }
