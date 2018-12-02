@@ -34,7 +34,7 @@ export class Player extends Physics.Arcade.Sprite {
     super(scene, entrance.x, entrance.y + 8, 'player', 0);
 
     scene.physics.world.enableBody(this, 0);
-    this.shootKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.SPACE);
+    this.shootKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.C);
     this.meleeKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.Z);
     this.shieldKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.X);
 

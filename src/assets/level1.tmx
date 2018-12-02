@@ -187,7 +187,7 @@
   </object>
   <object id="22" name="sign" gid="98" x="1792" y="512" width="32" height="32">
    <properties>
-    <property name="text" value="You're ready, Champion! Now go and tech those enemies their lesson. May the higher forces be with you..."/>
+    <property name="text" value="You're ready, Champion! Now go and teach those enemies their lesson. May the higher forces be with you..."/>
    </properties>
   </object>
  </objectgroup>
