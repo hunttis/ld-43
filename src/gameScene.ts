@@ -213,6 +213,10 @@ export class GameScene extends Scene {
       this.playerExits();
     }
 
+    if (this.player.health <= 0) {
+      this.scene.start('GameOverScene');
+    }
+
   }
 
   playerExits() {

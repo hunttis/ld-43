@@ -1,6 +1,5 @@
 import { Physics, Scene, Input, GameObjects } from 'phaser';
 import { GameScene } from '~/gameScene'
-import { Bullet } from './bullet';
 import { PlayerSlash } from './playerslash';
 import { PlayerBow } from './playerbow';
 
