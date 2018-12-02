@@ -1,6 +1,9 @@
 import { Scene, GameObjects, Physics } from "phaser";
 import { GameScene } from "~/gameScene";
 
+const LEFT = -1
+const RIGHT = 1
+
 export class Bullet extends Physics.Arcade.Sprite {
   scene!: GameScene
   body!: Physics.Arcade.Body
@@ -11,6 +14,7 @@ export class Bullet extends Physics.Arcade.Sprite {
     scene.physics.world.enableBody(this, 0);
     this.setVelocityX(direction * 300.0);
     this.body.setAllowGravity(false);
+    this.scaleX = direction;
   }
 
   update() {
