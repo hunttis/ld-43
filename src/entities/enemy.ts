@@ -10,6 +10,8 @@ export abstract class Enemy extends Physics.Arcade.Sprite {
   abstract die(): void;
 
   receiveHit(damage: number) {
+
+    this.scene.effects.bloodSpurt(this.x, this.y);
     if (!this.smackSound.isPlaying) {
       this.smackSound.play();
     }

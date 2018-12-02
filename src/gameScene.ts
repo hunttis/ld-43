@@ -6,6 +6,7 @@ import { Enemy } from './entities/enemy';
 import { EnemyAttack } from './entities/enemyAttack';
 import { PlayerAttack } from './entities/playerAttack';
 import { Sign } from './entities/sign';
+import { Effects } from './effects';
 
 export class GameScene extends Scene {
 
@@ -21,6 +22,7 @@ export class GameScene extends Scene {
   exit!: GameObjects.Sprite;
   signs!: GameObjects.Group;
   actionButtons!: GameObjects.Sprite;
+  effects!: Effects;
 
   nextLevelKey!: Input.Keyboard.Key;
   tonkSound!: Phaser.Sound.BaseSound;
@@ -56,6 +58,7 @@ export class GameScene extends Scene {
       const attack = bullet as PlayerAttack;
       if (tile.collides && attack.doesThisCollideWithLevel()) {
         this.tonkSound.play();
+        this.effects.dustPuff(attack.x, attack.y);
         attack.hitsSomething();
       }
     });
@@ -64,6 +67,7 @@ export class GameScene extends Scene {
       const attack = bullet as EnemyAttack;
       if (tile.collides && attack.doesThisCollideWithLevel()) {
         this.tonkSound.play();
+        this.effects.dustPuff(attack.x, attack.y);
         attack.hitsSomething();
       }
     })
@@ -112,6 +116,8 @@ export class GameScene extends Scene {
       repeat: 1
 
     })
+
+    this.effects = new Effects(this);
   }
 
   addObjectsToLevel() {

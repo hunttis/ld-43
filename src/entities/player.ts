@@ -110,6 +110,7 @@ export class Player extends Physics.Arcade.Sprite {
       } else if (hopSound === 3) {
         this.hopSound3.play();
       }
+      this.scene.effects.dustPuff(this.x, this.y + 16);
       this.setVelocityY(-200);
     }
     if (Input.Keyboard.JustDown(this.shootKey)) {
@@ -163,10 +164,12 @@ export class Player extends Physics.Arcade.Sprite {
     if (!this.shieldUp) {
       this.health -= damage;
       this.paintHealthBar();
+      this.scene.effects.bloodSpurt(this.x, this.y);
       if (!this.smackSound.isPlaying) {
         this.smackSound.play();
       }
     } else {
+      this.scene.effects.sparks(this.x, this.y);
       if (!this.clonkSound.isPlaying) {
         this.clonkSound.play();
       }
