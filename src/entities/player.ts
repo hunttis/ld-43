@@ -2,6 +2,7 @@ import { Physics, Scene, Input, GameObjects } from 'phaser';
 import { GameScene } from '~/gameScene'
 import { Bullet } from './bullet';
 import { PlayerSlash } from './playerslash';
+import { PlayerBow } from './playerbow';
 
 const LEFT = -1
 const RIGHT = 1
@@ -10,7 +11,7 @@ export class Player extends Physics.Arcade.Sprite {
   scene!: GameScene;
   cursors: Input.Keyboard.CursorKeys;
   shieldSprite!: GameObjects.Sprite;
-  bowSprite!: GameObjects.Sprite;
+  bow!: GameObjects.Sprite;
 
   shootKey: Input.Keyboard.Key;
   meleeKey: Input.Keyboard.Key;
@@ -19,10 +20,6 @@ export class Player extends Physics.Arcade.Sprite {
   hasDoubleJumped: boolean = false;
   meleeCooldown: number = 0;
   shieldUp: boolean = false;
-  shootDelay: number = 100;
-  isFiring: boolean = false;
-  hasFired: boolean = false;
-  stashBowDelay: number = 500;
 
   // Powers
   doubleJump = true;
@@ -32,8 +29,6 @@ export class Player extends Physics.Arcade.Sprite {
 
   direction = RIGHT
   COOLDOWN_MELEE_MAX: number = 500;
-  SHOOT_DELAY_MAX: number = 100;
-  STASH_BOW_DELAY_MAX: number = 500;
 
   constructor(scene: GameScene, private bulletGroup: GameObjects.Group, entrance: GameObjects.Sprite) {
     super(scene, entrance.x, entrance.y + 8, 'player', 0);
@@ -46,19 +41,18 @@ export class Player extends Physics.Arcade.Sprite {
 
     this.shieldSprite = new GameObjects.Sprite(scene, this.body.x, this.body.y, 'shield');
     this.shieldSprite.setVisible(false);
-    this.shieldSprite.setDepth(100);
+    this.shieldSprite.setDepth(90);
     this.scene.add.existing(this.shieldSprite);
 
-    this.bowSprite = new GameObjects.Sprite(scene, this.body.x, this.body.y, 'bow');
-    this.bowSprite.setAlpha(0);
-    this.bowSprite.setDepth(100);
-    this.scene.add.existing(this.bowSprite);
-    this.depth = 90;
+    this.bow = new PlayerBow(scene, this.body.x, this.body.y, this, bulletGroup);
+    this.bow.setAlpha(0);
+    this.bow.setDepth(90);
+    this.scene.add.existing(this.bow);
+
+    this.depth = 89;
   }
 
   update() {
-
-
     if (this.cursors.left!.isDown) {
       this.setVelocityX(-100);
       this.direction = LEFT
@@ -74,9 +68,6 @@ export class Player extends Physics.Arcade.Sprite {
       this.setVelocityX(0);
     }
 
-
-
-
     if (this.isOnFloor) {
       this.hasDoubleJumped = false;
     }
@@ -88,7 +79,7 @@ export class Player extends Physics.Arcade.Sprite {
     }
     if (Input.Keyboard.JustDown(this.shootKey)) {
       if (this.rangeAttack) {
-        this.shoot();
+        this.bow.shoot();
       }
     }
     this.meleeCooldown -= this.scene.sys.game.loop.delta;
@@ -112,40 +103,11 @@ export class Player extends Physics.Arcade.Sprite {
 
   updateAccesories() {
     this.updateShield();
-    this.updateBow();
+    this.bow.update();
   }
 
   updateShield() {
     this.shieldSprite.setPosition(this.body.x + 16 + (this.direction * 8), this.body.y + 16);
-  }
-
-  updateBow() {
-    this.bowSprite.scaleX = this.direction;
-    this.bowSprite.setPosition(this.body.x + 16 + (this.direction * 8), this.body.y + 12);
-    if (this.isFiring) {
-      this.shootDelay -= this.scene.sys.game.loop.delta;
-      if (this.shootDelay < 0) {
-        const bullet = new Bullet(this.scene, this, this.direction);
-        this.bulletGroup.add(bullet);
-        this.scene.add.existing(bullet);
-        this.isFiring = false;
-        this.shootDelay = this.SHOOT_DELAY_MAX;
-        this.hasFired = true;
-        this.stashBowDelay = this.STASH_BOW_DELAY_MAX;
-      }
-    }
-    if (this.hasFired) {
-      this.stashBowDelay -= this.scene.sys.game.loop.delta;
-      if (this.stashBowDelay < 0) {
-        this.hasFired = false;
-        this.scene.add.tween({
-          targets: this.bowSprite,
-          duration: 200,
-          alpha: 0,
-          angle: 100 * this.direction
-        })
-      }
-    }
   }
 
   get canDoubleJump() {
@@ -154,16 +116,6 @@ export class Player extends Physics.Arcade.Sprite {
 
   get isOnFloor(): boolean {
     return (this.body as any).onFloor()
-  }
-
-  shoot() {
-    this.isFiring = true;
-    this.bowSprite.setAngle(0);
-    this.scene.add.tween({
-      targets: this.bowSprite,
-      duration: 50,
-      alpha: 1
-    })
   }
 
   melee() {
