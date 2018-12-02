@@ -45,16 +45,16 @@ export class StoryScene extends Scene {
       'Go kill!'
     ],
 
-    // 2 - Return home, shield taken
+    // 2 - You may take a vacation
     ['Champion!'],
 
-    // 3 - Shield still gone
+    // 3 - Want to find fluffy? we'll take shield
+    ['Gimme shield?'],
+
+    // 4 - Shield still gone?
     ['Miss your shield?'],
 
-    // 4 - Still at the quest?! Bow taken
-    ['Gimme bow'],
-
-    // 5 - How dare you!?
+    // 5 - bow gone!
     ['RRAAAA'],
 
     // 6 - Double jump taken
@@ -89,9 +89,7 @@ export class StoryScene extends Scene {
     this.nextLineKey = this.input.keyboard.addKey(Input.Keyboard.KeyCodes.SPACE);
     this.createDeityPortraits();
     this.createTextBox();
-
     this.showProperDeity();
-
   }
 
   createBackground() {
@@ -123,6 +121,8 @@ export class StoryScene extends Scene {
       Number(this.game.config.height) - this.normaldeity.height,
       this.normaldeity.width,
       this.normaldeity.height);
+
+    console.log('lines this time', this.lines[this.levelNumber].length);
   }
 
 
@@ -159,6 +159,7 @@ export class StoryScene extends Scene {
 
   update() {
     if (Input.Keyboard.JustDown(this.nextLineKey)) {
+      console.log('currentLine', this.currentLine);
       this.currentLine++;
       if (this.currentLine >= this.lines[this.levelNumber].length) {
         this.scene.start('GameScene', { levelNumber: this.levelNumber });

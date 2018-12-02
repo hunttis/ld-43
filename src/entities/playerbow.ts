@@ -57,13 +57,10 @@ export class PlayerBow extends GameObjects.Sprite {
   shoot() {
     const bowSound = Math.round(Math.random() * 2) + 1;
     if (bowSound === 1) {
-      console.log('1');
       this.bowSound1.play();
     } else if (bowSound === 2) {
-      console.log('2');
       this.bowSound2.play();
     } else if (bowSound === 3) {
-      console.log('3');
       this.bowSound3.play();
     }
     this.isFiring = true;

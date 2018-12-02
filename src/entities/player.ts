@@ -97,13 +97,10 @@ export class Player extends Physics.Arcade.Sprite {
       }
       const hopSound = Math.round(Math.random() * 2) + 1;
       if (hopSound === 1) {
-        console.log('1');
         this.hopSound1.play();
       } else if (hopSound === 2) {
-        console.log('2');
         this.hopSound2.play();
       } else if (hopSound === 3) {
-        console.log('3');
         this.hopSound3.play();
       }
       this.setVelocityY(-200);
