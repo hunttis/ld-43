@@ -6,6 +6,7 @@ import { RangedEnemy } from './entities/rangedenemy';
 import { Enemy } from './entities/enemy';
 import { EnemyAttack } from './entities/enemyAttack';
 import { PlayerAttack } from './entities/playerAttack';
+import { Sign } from './entities/sign';
 
 export class GameScene extends Scene {
 
@@ -18,6 +19,7 @@ export class GameScene extends Scene {
   enemyBullets!: GameObjects.Group;
   entrance!: GameObjects.Sprite;
   exit!: GameObjects.Sprite;
+  signs!: GameObjects.Group;
 
   constructor() {
     super('GameScene');
@@ -29,7 +31,8 @@ export class GameScene extends Scene {
     this.bullets = this.add.group();
     this.enemyBullets = this.add.group();
     this.enemies = this.add.group();
-    this.addEnemies();
+    this.signs = this.add.group();
+    this.addObjectsToLevel();
 
     this.player = new Player(this, this.bullets, this.entrance);
     this.add.existing(this.player);
@@ -51,6 +54,11 @@ export class GameScene extends Scene {
       }
     })
 
+    this.physics.add.overlap(this.signs, this.player, item => {
+      const sign = item as Sign;
+      sign.isBeingRead();
+    })
+
     const light = this.lights.addLight(Number(this.game.config.width) / 2, 300, 5000);
     this.lights.enable().setAmbientColor(0xaaaaaa);
     this.physics.add.collider(this.player, this.layer);
@@ -69,10 +77,9 @@ export class GameScene extends Scene {
       attack.hitsSomething();
       enemy.receiveHit(attack.getDamage());
     });
-
   }
 
-  addEnemies() {
+  addObjectsToLevel() {
     for (const layer of this.level.objects) {
       for (const levelobject of layer.objects) {
         console.log(levelobject.name);
@@ -85,6 +92,11 @@ export class GameScene extends Scene {
           const enemy = new RangedEnemy(this, levelobject.x + 16, levelobject.y - 16);
           this.add.existing(enemy);
           this.enemies.add(enemy);
+        }
+        if (levelobject.name === 'sign') {
+          const sign = new Sign(this, levelobject.x + 16, levelobject.y - 16, levelobject.properties.text);
+          this.add.existing(sign);
+          this.signs.add(sign);
         }
       }
     }
@@ -127,9 +139,13 @@ export class GameScene extends Scene {
     for (const enemy of this.enemies.getChildren()) {
       enemy.update();
     }
+    for (const sign of this.signs.getChildren()) {
+      sign.update();
+    }
 
     this.enemyBullets.getChildren().forEach(bullet => {
       bullet.update();
     })
   }
+
 }

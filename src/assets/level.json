@@ -107,6 +107,26 @@
                  "width":32,
                  "x":1023.16866506795,
                  "y":478.80415667466
+                }, 
+                {
+                 "gid":39,
+                 "height":32,
+                 "id":11,
+                 "name":"sign",
+                 "properties":
+                    {
+                     "text":"\nHome village\n"
+                    },
+                 "propertytypes":
+                    {
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":352.505195843325,
+                 "y":544.377298161471
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -114,7 +134,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":11,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.3",
