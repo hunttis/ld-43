@@ -63,8 +63,6 @@ export class GameScene extends Scene {
       sign.isBeingRead();
     })
 
-    const light = this.lights.addLight(Number(this.game.config.width) / 2, 300, 5000);
-    this.lights.enable().setAmbientColor(0xaaaaaa);
     this.physics.add.collider(this.player, this.layer);
 
     this.physics.add.collider(this.enemies, this.layer);
