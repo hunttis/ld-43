@@ -12,8 +12,15 @@ export class EnemyBow extends GameObjects.Sprite {
   hasFired: boolean = false;
   shootDelay: number = 0;
 
+  bowSound1: Phaser.Sound.BaseSound;
+  bowSound2: Phaser.Sound.BaseSound;
+  bowSound3: Phaser.Sound.BaseSound;
+
   constructor(scene: GameScene, x: number, y: number, private owner: RangedEnemy) {
     super(scene, x, y, 'bow');
+    this.bowSound1 = this.scene.sound.add('bow1');
+    this.bowSound2 = this.scene.sound.add('bow2');
+    this.bowSound3 = this.scene.sound.add('bow3');
   }
 
   update() {
@@ -44,6 +51,17 @@ export class EnemyBow extends GameObjects.Sprite {
   }
 
   shoot() {
+    const bowSound = Math.round(Math.random() * 2) + 1;
+    if (bowSound === 1) {
+      console.log('1');
+      this.bowSound1.play();
+    } else if (bowSound === 2) {
+      console.log('2');
+      this.bowSound2.play();
+    } else if (bowSound === 3) {
+      console.log('3');
+      this.bowSound3.play();
+    }
     this.isFiring = true;
     this.scene.add.tween({
       targets: this,

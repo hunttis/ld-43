@@ -8,22 +8,25 @@ export class PlayerSlash extends PlayerAttack {
   body!: Physics.Arcade.Body;
   direction: integer;
   readyToDestroy: boolean = false;
-  damage: number = 20;
+  damage: number = 50;
+  thwupSound: Phaser.Sound.BaseSound;
 
   constructor(scene: GameScene, private parent: Player, direction: integer) {
     super(scene, parent.x + (16 * direction), parent.y, 'slash');
 
+    this.thwupSound = this.scene.sound.add('thwup');
     this.lifetime = 250;
     this.direction = direction;
     this.flipX = direction < 0
     scene.physics.world.enableBody(this, 0);
     this.body.allowGravity = false;
-
+    this.thwupSound.play();
     this.scene.tweens.add({
       targets: this,
       alpha: 0,
       duration: 250
     });
+    this.depth = 98
   }
 
   update() {

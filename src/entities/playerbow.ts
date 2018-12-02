@@ -14,8 +14,15 @@ export class PlayerBow extends GameObjects.Sprite {
   hasFired: boolean = false;
   stashBowDelay: number = 500;
 
+  bowSound1: Phaser.Sound.BaseSound;
+  bowSound2: Phaser.Sound.BaseSound;
+  bowSound3: Phaser.Sound.BaseSound;
+
   constructor(scene: GameScene, x: number, y: number, private owner: Player, private bulletGroup: GameObjects.Group) {
     super(scene, x, y, 'bow');
+    this.bowSound1 = this.scene.sound.add('bow1');
+    this.bowSound2 = this.scene.sound.add('bow2');
+    this.bowSound3 = this.scene.sound.add('bow3');
   }
 
   update() {
@@ -48,6 +55,17 @@ export class PlayerBow extends GameObjects.Sprite {
   }
 
   shoot() {
+    const bowSound = Math.round(Math.random() * 2) + 1;
+    if (bowSound === 1) {
+      console.log('1');
+      this.bowSound1.play();
+    } else if (bowSound === 2) {
+      console.log('2');
+      this.bowSound2.play();
+    } else if (bowSound === 3) {
+      console.log('3');
+      this.bowSound3.play();
+    }
     this.isFiring = true;
     this.setAngle(0);
     this.scene.add.tween({

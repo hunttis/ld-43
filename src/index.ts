@@ -7,6 +7,15 @@ import { StoryScene } from './storyScene';
 import GameScalePlugin from 'phaser-plugin-game-scale';
 import playerImage from './assets/animated/player.png';
 import playerNormalmap from './assets/player/player_n.png';
+import bow1 from './assets/bow1.mp3';
+import bow2 from './assets/bow2.mp3';
+import bow3 from './assets/bow3.mp3';
+import bong from './assets/bong.mp3';
+import smack from './assets/smack.mp3';
+import clonk from './assets/clonk.mp3';
+import tonk from './assets/tonk.mp3';
+import thwup from './assets/thwup.mp3';
+
 
 class InitScene extends Scene {
   preload() {
@@ -22,6 +31,15 @@ class InitScene extends Scene {
     }
 
     const result = this.load.spritesheet('player', playerImage as string, { frameWidth: 32, frameHeight: 32 });
+
+    this.load.audio('bow1', bow1);
+    this.load.audio('bow2', bow2);
+    this.load.audio('bow3', bow3);
+    this.load.audio('bong', bong);
+    this.load.audio('tonk', tonk);
+    this.load.audio('clonk', clonk);
+    this.load.audio('smack', smack);
+    this.load.audio('thwup', thwup);
   }
 
   create() {

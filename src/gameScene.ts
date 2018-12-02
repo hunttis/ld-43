@@ -30,6 +30,7 @@ export class GameScene extends Scene {
     this.levelNumber = data.levelNumber;
   }
 
+
   create() {
     this.createBackground();
     this.level = this.loadAndCreateMap();

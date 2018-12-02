@@ -30,6 +30,9 @@ export class Player extends Physics.Arcade.Sprite {
   direction = RIGHT
   COOLDOWN_MELEE_MAX: number = 500;
 
+  smackSound: Phaser.Sound.BaseSound;
+  clonkSound: Phaser.Sound.BaseSound;
+
   constructor(scene: GameScene, private bulletGroup: GameObjects.Group, entrance: GameObjects.Sprite) {
     super(scene, entrance.x, entrance.y + 8, 'player', 0);
 
@@ -39,6 +42,9 @@ export class Player extends Physics.Arcade.Sprite {
     this.shieldKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.X);
 
     this.cursors = scene.input.keyboard.createCursorKeys();
+
+    this.smackSound = this.scene.sound.add('smack');
+    this.clonkSound = this.scene.sound.add('clonk');
 
     this.shieldSprite = new GameObjects.Sprite(scene, this.body.x, this.body.y, 'shield');
     this.shieldSprite.setVisible(false);
@@ -132,8 +138,11 @@ export class Player extends Physics.Arcade.Sprite {
   }
 
   receiveHit(damage: number) {
+
     if (!this.shieldUp) {
-      console.log('ouch!');
+      this.smackSound.play();
+    } else {
+      this.clonkSound.play();
     }
   }
 }
