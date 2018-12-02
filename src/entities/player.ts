@@ -36,7 +36,7 @@ export class Player extends Physics.Arcade.Sprite {
   STASH_BOW_DELAY_MAX: number = 500;
 
   constructor(scene: GameScene, private bulletGroup: GameObjects.Group, entrance: GameObjects.Sprite) {
-    super(scene, entrance.x, entrance.y + 16, 'player', 0);
+    super(scene, entrance.x, entrance.y + 8, 'player', 0);
 
     scene.physics.world.enableBody(this, 0);
     this.shootKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.SPACE);
@@ -53,6 +53,7 @@ export class Player extends Physics.Arcade.Sprite {
     this.bowSprite.setAlpha(0);
     this.bowSprite.setDepth(100);
     this.scene.add.existing(this.bowSprite);
+    this.depth = 90;
   }
 
   update() {

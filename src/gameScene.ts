@@ -125,15 +125,27 @@ export class GameScene extends Scene {
       map.tileHeight
     );
 
+    const bgtileset = map.addTilesetImage(
+      'bgtiles',
+      'bgtiles',
+      map.tileWidth,
+      map.tileHeight
+    );
+
 
     this.createParallaxLayer(Number(map.heightInPixels) - 180, Number(map.widthInPixels), 0.3, 30, 0xaaaaaa);
     this.createParallaxLayer(Number(map.heightInPixels) - 160, Number(map.widthInPixels), 0.4, 100, 0xCCCCCC);
     this.createParallaxLayer(Number(map.heightInPixels) - 150, Number(map.widthInPixels), 0.5, 0, 0xffffff);
 
+    console.log(map);
+
     const layer = map.createStaticLayer('foreground', tileset, 0, 0);
     layer.setCollisionByProperty({ collides: true })
     layer.depth = 100;
     this.layer = layer;
+
+    const bgLayer = map.createStaticLayer('background', bgtileset, 0, 0);
+    bgLayer.depth = 10;
 
     this.entrance = map.createFromObjects('objects', 'entrance', { key: 'entrance' })[0];
     this.exit = map.createFromObjects('objects', 'exit', { key: 'exit' })[0];
