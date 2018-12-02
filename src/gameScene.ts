@@ -35,7 +35,6 @@ export class GameScene extends Scene {
     this.levelNumber = data.levelNumber;
   }
 
-
   create() {
     this.createBackground();
     this.level = this.loadAndCreateMap();
@@ -177,7 +176,6 @@ export class GameScene extends Scene {
     this.createParallaxLayer(Number(map.heightInPixels) - 160, Number(map.widthInPixels), 0.4, 100, 0xCCCCCC);
     this.createParallaxLayer(Number(map.heightInPixels) - 150, Number(map.widthInPixels), 0.5, 0, 0xffffff);
 
-
     const layer = map.createStaticLayer('foreground', tileset, 0, 0);
     layer.setCollisionByProperty({ collides: true })
     layer.depth = 100;
@@ -227,11 +225,9 @@ export class GameScene extends Scene {
     if (this.player.health <= 0) {
       this.scene.start('GameOverScene');
     }
-
   }
 
   playerExits() {
     this.scene.start('StoryScene', { levelNumber: this.levelNumber + 1 });
   }
-
 }

@@ -23,7 +23,8 @@ export class Bullet extends PlayerAttack {
 
   update() {
     super.update();
-    if (this.body.x < 0 || this.body.x > Number(this.scene.layer.width)) {
+    const distance = Phaser.Math.Distance.Between(this.body.x, this.body.y, this.scene.player.body.x, this.scene.player.body.y);
+    if (this.body.x < 0 || this.body.x > Number(this.scene.layer.width) || distance > 600) {
       this.destroy();
     }
   }
