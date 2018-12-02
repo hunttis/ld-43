@@ -5,7 +5,7 @@ import { MenuScene } from './menuScene';
 import { GameScene } from './gameScene';
 import { StoryScene } from './storyScene';
 import GameScalePlugin from 'phaser-plugin-game-scale';
-import playerImage from './assets/player/player.png';
+import playerImage from './assets/animated/player.png';
 import playerNormalmap from './assets/player/player_n.png';
 
 class InitScene extends Scene {
@@ -14,16 +14,31 @@ class InitScene extends Scene {
       console.log('loaded', path, '->', name);
       this.load.image(name, path as string);
     }
-    this.load.image('player', [playerImage as string, playerNormalmap as string]);
+    // this.load.image('player', [playerImage as string, playerNormalmap as string]);
 
     for (const [name, path] of Object.entries(jsonAssets)) {
       this.load.tilemapTiledJSON(name, path as string);
       console.log('loaded', path, '->', name);
     }
+
+    const result = this.load.spritesheet('player', playerImage as string, { frameWidth: 32, frameHeight: 32 });
   }
 
   create() {
     this.scene.start('GameScene', { levelNumber: 0 });
+
+    const playerIdle = {
+      key: 'playerIdle',
+      frames: this.anims.generateFrameNumbers('player', { frames: [1] }),
+      frameRate: 1,
+    }
+    const playerConfig = {
+      key: 'playerWalk',
+      frames: this.anims.generateFrameNumbers('player', { frames: [3, 4, 5, 6, 7] }),
+      frameRate: 10,
+      repeat: -1
+    }
+    this.anims.create(playerConfig);
   }
 }
 

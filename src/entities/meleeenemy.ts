@@ -13,7 +13,6 @@ export class MeleeEnemy extends Enemy {
     super(scene, x, y, 'player');
     scene.physics.world.enableBody(this, 0);
     this.tint = 0xff0000;
-    this.setPipeline('Light2D');
   }
 
   update() {

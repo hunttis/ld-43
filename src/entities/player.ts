@@ -36,13 +36,13 @@ export class Player extends Physics.Arcade.Sprite {
   STASH_BOW_DELAY_MAX: number = 500;
 
   constructor(scene: GameScene, private bulletGroup: GameObjects.Group, entrance: GameObjects.Sprite) {
-    super(scene, entrance.x, entrance.y + 16, 'player');
+    super(scene, entrance.x, entrance.y + 16, 'player', 0);
+
     scene.physics.world.enableBody(this, 0);
     this.shootKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.SPACE);
     this.meleeKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.Z);
     this.shieldKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.X);
     this.cursors = scene.input.keyboard.createCursorKeys();
-    this.setPipeline('Light2D');
 
     this.shieldSprite = new GameObjects.Sprite(scene, this.body.x, this.body.y, 'shield');
     this.shieldSprite.setVisible(false);
@@ -56,6 +56,8 @@ export class Player extends Physics.Arcade.Sprite {
   }
 
   update() {
+    this.anims.play('playerWalk', true);
+
     if (this.cursors.left!.isDown) {
       this.setVelocityX(-100);
       this.direction = LEFT

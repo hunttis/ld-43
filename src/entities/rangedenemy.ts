@@ -20,7 +20,6 @@ export class RangedEnemy extends Enemy {
     super(scene, x, y, 'player');
     scene.physics.world.enableBody(this, 0);
     this.tint = 0x00ff00;
-    this.setPipeline('Light2D');
 
     this.bowSprite = new GameObjects.Sprite(scene, this.body.x, this.body.y, 'bow');
     this.bowSprite.setAngle(45 * this.facing);
