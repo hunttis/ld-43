@@ -11,7 +11,7 @@ export class Player extends Physics.Arcade.Sprite {
   scene!: GameScene;
   cursors: Input.Keyboard.CursorKeys;
   shieldSprite!: GameObjects.Sprite;
-  bow!: GameObjects.Sprite;
+  bow!: PlayerBow;
 
   shootKey: Input.Keyboard.Key;
   meleeKey: Input.Keyboard.Key;
