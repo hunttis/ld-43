@@ -1,6 +1,7 @@
-import { Scene, GameObjects, Physics } from "phaser";
+import { GameObjects, Physics } from "phaser";
 import { GameScene } from "~/gameScene";
 import { PlayerAttack } from "./playerAttack";
+import { EnemyAttack } from "./enemyAttack";
 
 const LEFT = -1
 const RIGHT = 1
@@ -46,6 +47,6 @@ export class Bullet extends PlayerAttack {
   }
 }
 
-const onCompleteHandler = (tween: Phaser.Tweens.Tween, targets: any, arrow: EnemyBullet): void => {
+const onCompleteHandler = (tween: Phaser.Tweens.Tween, targets: any, arrow: PlayerAttack): void => {
   arrow.destroy();
 }

@@ -4,6 +4,7 @@ import * as jsonAssets from './assets/*.json';
 import { MenuScene } from './menuScene';
 import { GameScene } from './gameScene';
 import { StoryScene } from './storyScene';
+import { GameOverScene } from './gameOverScene';
 import GameScalePlugin from 'phaser-plugin-game-scale';
 import playerImage from './assets/animated/player.png';
 import bow1 from './assets/bow1.mp3';
@@ -104,7 +105,7 @@ const config: GameConfig = {
     },
 
   },
-  scene: [InitScene, MenuScene, GameScene, StoryScene],
+  scene: [InitScene, MenuScene, GameScene, StoryScene, GameOverScene],
   plugins: {
     global: [gameScalePlugin]
   }

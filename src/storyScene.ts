@@ -81,6 +81,7 @@ export class StoryScene extends Scene {
   }
 
   init(data: any) {
+    this.currentLine = 0;
     this.levelNumber = data.levelNumber;
   }
 
