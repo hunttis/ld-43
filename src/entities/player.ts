@@ -140,9 +140,13 @@ export class Player extends Physics.Arcade.Sprite {
   receiveHit(damage: number) {
 
     if (!this.shieldUp) {
-      this.smackSound.play();
+      if (!this.smackSound.isPlaying) {
+        this.smackSound.play();
+      }
     } else {
-      this.clonkSound.play();
+      if (!this.clonkSound.isPlaying) {
+        this.clonkSound.play();
+      }
     }
   }
 }
