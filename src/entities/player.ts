@@ -37,6 +37,7 @@ export class Player extends Physics.Arcade.Sprite {
     this.shootKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.SPACE);
     this.meleeKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.Z);
     this.shieldKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.X);
+
     this.cursors = scene.input.keyboard.createCursorKeys();
 
     this.shieldSprite = new GameObjects.Sprite(scene, this.body.x, this.body.y, 'shield');
