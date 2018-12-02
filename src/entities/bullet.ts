@@ -17,7 +17,7 @@ export class Bullet extends PlayerAttack {
     this.setVelocityX(direction * 300.0);
     this.body.setAllowGravity(false);
     this.scaleX = direction;
-    this.depth = 102;
+    this.depth = 91;
   }
 
   update() {
