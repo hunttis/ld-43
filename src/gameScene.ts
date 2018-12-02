@@ -1,7 +1,6 @@
 import { Scene, GameObjects, Input } from 'phaser';
 import { Player } from '~/entities/player';
 import { MeleeEnemy } from '~/entities/meleeenemy';
-import { Bullet } from './entities/bullet';
 import { RangedEnemy } from './entities/rangedenemy';
 import { Enemy } from './entities/enemy';
 import { EnemyAttack } from './entities/enemyAttack';
@@ -126,6 +125,11 @@ export class GameScene extends Scene {
       map.tileHeight
     );
 
+
+    this.createParallaxLayer(Number(map.heightInPixels) - 180, Number(map.widthInPixels), 0.3, 30, 0xaaaaaa);
+    this.createParallaxLayer(Number(map.heightInPixels) - 160, Number(map.widthInPixels), 0.4, 100, 0xCCCCCC);
+    this.createParallaxLayer(Number(map.heightInPixels) - 150, Number(map.widthInPixels), 0.5, 0, 0xffffff);
+
     const layer = map.createStaticLayer('foreground', tileset, 0, 0);
     layer.setCollisionByProperty({ collides: true })
     layer.depth = 100;
@@ -135,6 +139,14 @@ export class GameScene extends Scene {
     this.exit = map.createFromObjects('objects', 'exit', { key: 'exit' })[0];
 
     return map;
+  }
+
+  createParallaxLayer(y: number, width: number, scrollFactor: number, tilePositionX: number, tint: number) {
+    const parallaxBack = this.add.tileSprite(0, y, width, 150, 'hills');
+    parallaxBack.setOrigin(0);
+    parallaxBack.tilePositionX = tilePositionX;
+    parallaxBack.setScrollFactor(scrollFactor, 1);
+    parallaxBack.tint = tint;
   }
 
   update() {
