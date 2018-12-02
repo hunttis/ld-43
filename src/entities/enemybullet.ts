@@ -11,6 +11,7 @@ export class EnemyBullet extends Physics.Arcade.Sprite {
     scene.physics.world.enableBody(this, 0);
     this.setVelocityX(direction * 300.0);
     this.body.setAllowGravity(false);
+    this.scaleX = direction;
   }
 
   update() {
