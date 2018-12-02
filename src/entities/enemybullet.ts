@@ -28,19 +28,24 @@ export class EnemyBullet extends EnemyAttack {
     return damage
   }
 
-  hitsPlayer(): void {
+  hitsSomething(): void {
     this.setVelocity(0);
     this.scene.add.tween({
       targets: this,
       duration: 250,
       alpha: 0,
-      x: this.x - (this.direction * 8),
+      x: this.x - (this.direction * 16),
       y: this.y + 8,
       angle: 100,
       onComplete: onCompleteHandler,
       onCompleteParams: [this]
     })
   }
+
+  doesThisCollideWithLevel(): boolean {
+    return true;
+  }
+
 }
 
 const onCompleteHandler = (tween: Phaser.Tweens.Tween, targets: any, arrow: EnemyBullet): void => {

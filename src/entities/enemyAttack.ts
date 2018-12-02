@@ -6,5 +6,6 @@ export abstract class EnemyAttack extends Physics.Arcade.Sprite {
   body!: Physics.Arcade.Body
 
   abstract getDamage(): number;
-  abstract hitsPlayer(): void;
+  abstract hitsSomething(): void;
+  abstract doesThisCollideWithLevel(): boolean;
 }

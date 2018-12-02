@@ -37,5 +37,9 @@ export class EnemySlash extends EnemyAttack {
     return 1;
   }
 
-  hitsPlayer(): void { }
+  hitsSomething(): void { }
+
+  doesThisCollideWithLevel(): boolean {
+    return false;
+  }
 }
