@@ -7,6 +7,8 @@ export class StoryScene extends Scene {
   deities: string[] = [
     'exo',
     'hunttis',
+    'exo',
+    'hunttis',
   ]
 
   moods: string[][] = [
@@ -21,11 +23,13 @@ export class StoryScene extends Scene {
       'normal',
       'smirk',
       'smirk'
-    ]
+    ],
+    ['angry'],
+    ['angry']
   ]
 
   lines: string[][] = [
-    // 1
+    // 0 - Beginning
     [
       'Champion!',
       'We need you to fight our war!',
@@ -33,13 +37,34 @@ export class StoryScene extends Scene {
       'Take these. Now go forth!'
     ],
 
-    // 2
+    // 1 - Continued victories
     [
       'Champion!',
       'Well done!',
       'We want more blood!',
       'Go kill!'
-    ]
+    ],
+
+    // 2 - Return home, shield taken
+    ['Champion!'],
+
+    // 3 - Shield still gone
+    ['Miss your shield?'],
+
+    // 4 - Still at the quest?! Bow taken
+    ['Gimme bow'],
+
+    // 5 - How dare you!?
+    ['RRAAAA'],
+
+    // 6 - Double jump taken
+    ['Gimme double jump'],
+
+    // 7 - Near the end
+    ['Fine!'],
+
+    // 8 - Ending
+    ['End']
   ];
 
   currentLine: integer = 0;
