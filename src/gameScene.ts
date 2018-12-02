@@ -46,11 +46,9 @@ export class GameScene extends Scene {
     this.physics.add.collider(this.rangedEnemy, this.layer);
 
     this.physics.add.overlap(this.enemyBullets, this.player, bullet => {
-      if (!this.player.shieldUp) {
-        const enemyBullet = bullet as EnemyAttack;
-        this.player.receiveHit(enemyBullet.getDamage());
-        enemyBullet.hitsPlayer();
-      }
+      const enemyBullet = bullet as EnemyAttack;
+      this.player.receiveHit(enemyBullet.getDamage());
+      enemyBullet.hitsPlayer();
     });
 
     this.physics.add.overlap(this.bullets, this.enemy, bullet => {

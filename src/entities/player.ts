@@ -102,6 +102,8 @@ export class Player extends Physics.Arcade.Sprite {
   }
 
   receiveHit(damage: number) {
-    console.log('ouch!');
+    if (!this.shieldUp) {
+      console.log('ouch!');
+    }
   }
 }
