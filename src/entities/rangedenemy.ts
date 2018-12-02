@@ -4,7 +4,7 @@ import { Enemy } from './enemy';
 import { EnemyBow } from './enemybow';
 
 export class RangedEnemy extends Enemy {
-  WEAPON_COOLDOWN_MAX: number = Phaser.Math.Between(1500, 3000);
+  WEAPON_COOLDOWN_MAX: number = Phaser.Math.Between(2000, 3000);
   SHOOT_DELAY_MAX: number = 500;
 
   bow!: EnemyBow;

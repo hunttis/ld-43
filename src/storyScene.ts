@@ -31,6 +31,8 @@ export class StoryScene extends Scene {
     ],
     ['angry'],
     ['angry'],
+    ['angry'],
+    ['angry'],
     ['angry']
   ]
 
