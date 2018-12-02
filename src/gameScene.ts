@@ -22,6 +22,8 @@ export class GameScene extends Scene {
   signs!: GameObjects.Group;
   actionButtons!: GameObjects.Sprite;
 
+  nextLevelKey: Input.Keyboard.Key;
+
   constructor() {
     super('GameScene');
   }
@@ -44,6 +46,8 @@ export class GameScene extends Scene {
     this.player = new Player(this, this.bullets, this.entrance);
     this.add.existing(this.player);
     this.cursors = this.input.keyboard.createCursorKeys();
+    this.nextLevelKey = this.input.keyboard.addKey(Input.Keyboard.KeyCodes.N);
+
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(0, 0, Number(this.layer.width), Number(this.layer.height));
     this.physics.add.collider(this.player, this.layer);
@@ -202,10 +206,14 @@ export class GameScene extends Scene {
     if (this.exit.getBounds().contains(this.player.getCenter().x, this.player.getCenter().y)) {
       this.playerExits();
     }
+    if (Input.Keyboard.JustDown(this.nextLevelKey)) {
+      this.playerExits();
+    }
+
   }
 
   playerExits() {
-    this.scene.start('StoryScene', { levelNumber: this.levelNumber });
+    this.scene.start('StoryScene', { levelNumber: this.levelNumber + 1 });
   }
 
 }

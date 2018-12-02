@@ -15,6 +15,9 @@ import smack from './assets/smack.mp3';
 import clonk from './assets/clonk.mp3';
 import tonk from './assets/tonk.mp3';
 import thwup from './assets/thwup.mp3';
+import hop1 from './assets/hop1.mp3';
+import hop2 from './assets/hop2.mp3';
+import hop3 from './assets/hop3.mp3';
 
 
 class InitScene extends Scene {
@@ -40,6 +43,9 @@ class InitScene extends Scene {
     this.load.audio('clonk', clonk);
     this.load.audio('smack', smack);
     this.load.audio('thwup', thwup);
+    this.load.audio('hop1', hop1);
+    this.load.audio('hop2', hop2);
+    this.load.audio('hop3', hop3);
   }
 
   create() {

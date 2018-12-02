@@ -33,6 +33,10 @@ export class Player extends Physics.Arcade.Sprite {
   smackSound: Phaser.Sound.BaseSound;
   clonkSound: Phaser.Sound.BaseSound;
 
+  hopSound1: Phaser.Sound.BaseSound;
+  hopSound2: Phaser.Sound.BaseSound;
+  hopSound3: Phaser.Sound.BaseSound;
+
   constructor(scene: GameScene, private bulletGroup: GameObjects.Group, entrance: GameObjects.Sprite) {
     super(scene, entrance.x, entrance.y + 8, 'player', 0);
 
@@ -45,6 +49,9 @@ export class Player extends Physics.Arcade.Sprite {
 
     this.smackSound = this.scene.sound.add('smack');
     this.clonkSound = this.scene.sound.add('clonk');
+    this.hopSound1 = this.scene.sound.add('hop1');
+    this.hopSound2 = this.scene.sound.add('hop2');
+    this.hopSound3 = this.scene.sound.add('hop3');
 
     this.shieldSprite = new GameObjects.Sprite(scene, this.body.x, this.body.y, 'shield');
     this.shieldSprite.setVisible(false);
@@ -88,6 +95,17 @@ export class Player extends Physics.Arcade.Sprite {
       if (!this.isOnFloor) {
         this.hasDoubleJumped = true;
       }
+      const hopSound = Math.round(Math.random() * 2) + 1;
+      if (hopSound === 1) {
+        console.log('1');
+        this.hopSound1.play();
+      } else if (hopSound === 2) {
+        console.log('2');
+        this.hopSound2.play();
+      } else if (hopSound === 3) {
+        console.log('3');
+        this.hopSound3.play();
+      }
       this.setVelocityY(-200);
     }
     if (Input.Keyboard.JustDown(this.shootKey)) {
@@ -120,7 +138,7 @@ export class Player extends Physics.Arcade.Sprite {
   }
 
   updateShield() {
-    this.shieldSprite.setPosition(this.body.x + 16 + (this.direction * 8), this.body.y + 16);
+    this.shieldSprite.setPosition(this.body.x + 16 + (this.direction * 8), this.body.y + 12);
   }
 
   get canDoubleJump() {

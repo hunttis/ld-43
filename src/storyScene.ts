@@ -5,13 +5,21 @@ export class StoryScene extends Scene {
   levelNumber!: integer;
 
   deities: string[] = [
-    'hunttis'
+    'exo',
+    'hunttis',
   ]
 
   moods: string[][] = [
     [
       'angry',
       'normal',
+      'smirk',
+      'angry'
+    ],
+    [
+      'angry',
+      'normal',
+      'smirk',
       'smirk'
     ]
   ]
@@ -20,13 +28,17 @@ export class StoryScene extends Scene {
     // 1
     [
       'Champion!',
-      'What do you think you are doing?',
-      'I will have your shield!'
+      'We need you to fight our war!',
+      'For the battle, we will give you immense power!',
+      'Take these. Now go forth!'
     ],
 
     // 2
     [
-      'Fnorp'
+      'Champion!',
+      'Well done!',
+      'We want more blood!',
+      'Go kill!'
     ]
   ];
 
@@ -123,8 +135,8 @@ export class StoryScene extends Scene {
   update() {
     if (Input.Keyboard.JustDown(this.nextLineKey)) {
       this.currentLine++;
-      if (this.currentLine > this.lines.length) {
-        this.scene.start('GameScene', { levelNumber: this.levelNumber + 1 });
+      if (this.currentLine >= this.lines[this.levelNumber].length) {
+        this.scene.start('GameScene', { levelNumber: this.levelNumber });
       } else {
         this.showProperDeity();
         this.textBox.text = this.lines[this.levelNumber][this.currentLine];
