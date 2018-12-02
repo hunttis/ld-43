@@ -10,6 +10,7 @@ export class Player extends Physics.Arcade.Sprite {
   scene!: GameScene;
   cursors: Input.Keyboard.CursorKeys;
   shieldSprite!: GameObjects.Sprite;
+  bowSprite!: GameObjects.Sprite;
 
   shootKey: Input.Keyboard.Key;
   meleeKey: Input.Keyboard.Key;
@@ -18,14 +19,21 @@ export class Player extends Physics.Arcade.Sprite {
   hasDoubleJumped: boolean = false;
   meleeCooldown: number = 0;
   shieldUp: boolean = false;
+  shootDelay: number = 100;
+  isFiring: boolean = false;
+  hasFired: boolean = false;
+  stashBowDelay: number = 500;
 
   // Powers
   doubleJump = true;
   meleeAttack = true;
   shield = true;
+  rangeAttack = true;
 
   direction = RIGHT
   COOLDOWN_MELEE_MAX: number = 500;
+  SHOOT_DELAY_MAX: number = 100;
+  STASH_BOW_DELAY_MAX: number = 500;
 
   constructor(scene: GameScene, private bulletGroup: GameObjects.Group) {
     super(scene, 200, 500, 'player');
@@ -35,10 +43,16 @@ export class Player extends Physics.Arcade.Sprite {
     this.shieldKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.X);
     this.cursors = scene.input.keyboard.createCursorKeys();
     this.setPipeline('Light2D');
+
     this.shieldSprite = new GameObjects.Sprite(scene, this.body.x, this.body.y, 'shield');
     this.shieldSprite.setVisible(false);
     this.shieldSprite.setDepth(100);
     this.scene.add.existing(this.shieldSprite);
+
+    this.bowSprite = new GameObjects.Sprite(scene, this.body.x, this.body.y, 'bow');
+    this.bowSprite.setAlpha(0);
+    this.bowSprite.setDepth(100);
+    this.scene.add.existing(this.bowSprite);
   }
 
   update() {
@@ -61,7 +75,9 @@ export class Player extends Physics.Arcade.Sprite {
       this.setVelocityY(-200);
     }
     if (Input.Keyboard.JustDown(this.shootKey)) {
-      this.shoot()
+      if (this.rangeAttack) {
+        this.shoot();
+      }
     }
     this.meleeCooldown -= this.scene.sys.game.loop.delta;
     if (Input.Keyboard.JustDown(this.meleeKey) && this.meleeCooldown < 0) {
@@ -79,11 +95,45 @@ export class Player extends Physics.Arcade.Sprite {
       this.shieldSprite.setVisible(false);
     }
 
+    this.updateAccesories();
+  }
+
+  updateAccesories() {
     this.updateShield();
+    this.updateBow();
   }
 
   updateShield() {
     this.shieldSprite.setPosition(this.body.x + 16 + (this.direction * 8), this.body.y + 16);
+  }
+
+  updateBow() {
+    this.bowSprite.scaleX = this.direction;
+    this.bowSprite.setPosition(this.body.x + 16 + (this.direction * 8), this.body.y + 12);
+    if (this.isFiring) {
+      this.shootDelay -= this.scene.sys.game.loop.delta;
+      if (this.shootDelay < 0) {
+        const bullet = new Bullet(this.scene, this, this.direction);
+        this.bulletGroup.add(bullet);
+        this.scene.add.existing(bullet);
+        this.isFiring = false;
+        this.shootDelay = this.SHOOT_DELAY_MAX;
+        this.hasFired = true;
+        this.stashBowDelay = this.STASH_BOW_DELAY_MAX;
+      }
+    }
+    if (this.hasFired) {
+      this.stashBowDelay -= this.scene.sys.game.loop.delta;
+      if (this.stashBowDelay < 0) {
+        this.hasFired = false;
+        this.scene.add.tween({
+          targets: this.bowSprite,
+          duration: 200,
+          alpha: 0,
+          angle: 100 * this.direction
+        })
+      }
+    }
   }
 
   get canDoubleJump() {
@@ -95,9 +145,17 @@ export class Player extends Physics.Arcade.Sprite {
   }
 
   shoot() {
-    const bullet = new Bullet(this.scene, this, this.direction);
-    this.bulletGroup.add(bullet);
-    this.scene.add.existing(bullet);
+    this.isFiring = true;
+    this.bowSprite.setAngle(0);
+    this.scene.add.tween({
+      targets: this.bowSprite,
+      duration: 50,
+      alpha: 1
+    })
+    /* this.bowSprite.setAngle(0);
+    this.bowSprite.setAlpha(1);
+    this.bowSprite.setVisible(true);
+    this.isFiring = true; */
   }
 
   melee() {
