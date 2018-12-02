@@ -22,7 +22,7 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"entranceexit",
+         "name":"objects",
          "objects":[
                 {
                  "gid":38,
@@ -47,6 +47,66 @@
                  "width":64,
                  "x":2400,
                  "y":544
+                }, 
+                {
+                 "gid":39,
+                 "height":32,
+                 "id":5,
+                 "name":"ranged",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":542.882235528942,
+                 "y":542.946107784431
+                }, 
+                {
+                 "gid":39,
+                 "height":32,
+                 "id":6,
+                 "name":"melee",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":735.829673985363,
+                 "y":544.276779773786
+                }, 
+                {
+                 "gid":39,
+                 "height":32,
+                 "id":7,
+                 "name":"ranged",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":927.470373401877,
+                 "y":510.548820823581
+                }, 
+                {
+                 "gid":39,
+                 "height":32,
+                 "id":8,
+                 "name":"ranged",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":832.96872920825,
+                 "y":511.00998003992
+                }, 
+                {
+                 "gid":39,
+                 "height":32,
+                 "id":10,
+                 "name":"ranged",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":1023.16866506795,
+                 "y":478.80415667466
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -54,7 +114,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":5,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.3",

@@ -73,13 +73,21 @@ export class GameScene extends Scene {
   }
 
   addEnemies() {
-    const enemy = new MeleeEnemy(this);
-    this.add.existing(enemy);
-    this.enemies.add(enemy);
-
-    const rangedEnemy = new RangedEnemy(this);
-    this.add.existing(rangedEnemy);
-    this.enemies.add(rangedEnemy);
+    for (const layer of this.level.objects) {
+      for (const levelobject of layer.objects) {
+        console.log(levelobject.name);
+        if (levelobject.name === 'melee') {
+          const enemy = new MeleeEnemy(this, levelobject.x + 16, levelobject.y - 16);
+          this.add.existing(enemy);
+          this.enemies.add(enemy);
+        }
+        if (levelobject.name === 'ranged') {
+          const enemy = new RangedEnemy(this, levelobject.x + 16, levelobject.y - 16);
+          this.add.existing(enemy);
+          this.enemies.add(enemy);
+        }
+      }
+    }
   }
 
   createBackground() {
@@ -104,8 +112,8 @@ export class GameScene extends Scene {
     layer.depth = 100;
     this.layer = layer;
 
-    this.entrance = map.createFromObjects('entranceexit', 'entrance', { key: 'entrance' })[0];
-    this.exit = map.createFromObjects('entranceexit', 'exit', { key: 'exit' })[0];
+    this.entrance = map.createFromObjects('objects', 'entrance', { key: 'entrance' })[0];
+    this.exit = map.createFromObjects('objects', 'exit', { key: 'exit' })[0];
 
     return map;
   }

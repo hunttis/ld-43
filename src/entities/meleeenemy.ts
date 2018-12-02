@@ -9,8 +9,8 @@ export class MeleeEnemy extends Enemy {
   maxSlashcooldown: number = 2000;
   facing!: integer;
 
-  constructor(scene: GameScene) {
-    super(scene, 500, 500, 'player');
+  constructor(scene: GameScene, x: number, y: number) {
+    super(scene, x, y, 'player');
     scene.physics.world.enableBody(this, 0);
     this.tint = 0xff0000;
     this.setPipeline('Light2D');

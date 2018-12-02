@@ -9,8 +9,8 @@ export class RangedEnemy extends Enemy {
   maxWeaponCooldown: number = 2500;
   facing!: integer;
 
-  constructor(scene: GameScene) {
-    super(scene, 600, 500, 'player');
+  constructor(scene: GameScene, x: number, y: number) {
+    super(scene, x, y, 'player');
     scene.physics.world.enableBody(this, 0);
     this.tint = 0x00ff00;
     this.setPipeline('Light2D');
