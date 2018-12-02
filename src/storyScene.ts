@@ -9,6 +9,11 @@ export class StoryScene extends Scene {
     'hunttis',
     'exo',
     'hunttis',
+    'exo',
+    'hunttis',
+    'exo',
+    'hunttis',
+    'exo'
   ]
 
   moods: string[][] = [
