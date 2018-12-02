@@ -1,4 +1,4 @@
-import { GameObjects, Physics } from "phaser";
+import { Physics } from "phaser";
 import { GameScene } from "~/gameScene";
 
 export abstract class PlayerAttack extends Physics.Arcade.Sprite {

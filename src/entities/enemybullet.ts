@@ -23,12 +23,6 @@ export class EnemyBullet extends EnemyAttack {
     }
   }
 
-  getDamage() {
-    const damage = this.used ? 0 : this.damage;
-    this.used = true;
-    return damage
-  }
-
   hitsSomething(): void {
     this.setVelocity(0);
     this.scene.add.tween({
@@ -46,7 +40,6 @@ export class EnemyBullet extends EnemyAttack {
   doesThisCollideWithLevel(): boolean {
     return true;
   }
-
 }
 
 const onCompleteHandler = (tween: Phaser.Tweens.Tween, targets: any, arrow: EnemyBullet): void => {

@@ -37,6 +37,9 @@ export class Player extends Physics.Arcade.Sprite {
   hopSound2: Phaser.Sound.BaseSound;
   hopSound3: Phaser.Sound.BaseSound;
 
+  health: number = 100;
+  healthBar: Phaser.GameObjects.Graphics;
+
   constructor(scene: GameScene, private bulletGroup: GameObjects.Group, entrance: GameObjects.Sprite) {
     super(scene, entrance.x, entrance.y + 8, 'player', 0);
 
@@ -62,6 +65,11 @@ export class Player extends Physics.Arcade.Sprite {
     this.bow.setAlpha(0);
     this.bow.setDepth(90);
     this.scene.add.existing(this.bow);
+
+    this.healthBar = this.scene.add.graphics();
+    this.healthBar.setScrollFactor(0)
+    this.healthBar.depth = 120;
+    this.paintHealthBar();
 
     this.depth = 89;
   }
@@ -153,8 +161,9 @@ export class Player extends Physics.Arcade.Sprite {
   }
 
   receiveHit(damage: number) {
-
     if (!this.shieldUp) {
+      this.health -= damage;
+      this.paintHealthBar();
       if (!this.smackSound.isPlaying) {
         this.smackSound.play();
       }
@@ -163,5 +172,13 @@ export class Player extends Physics.Arcade.Sprite {
         this.clonkSound.play();
       }
     }
+    console.log(this.health);
+  }
+
+  paintHealthBar() {
+    this.healthBar.fillStyle(0x000000);
+    this.healthBar.fillRect(10, Number(this.scene.game.config.height) - 24, 128, 16);
+    this.healthBar.fillStyle(0x00ff00);
+    this.healthBar.fillRect(12, Number(this.scene.game.config.height) - 24 + 2, 124 / 100 * this.health, 12);
   }
 }

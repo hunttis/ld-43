@@ -7,6 +7,7 @@ export class EnemySlash extends EnemyAttack {
   body!: Physics.Arcade.Body;
   direction: integer;
   readyToDestroy: boolean = false;
+  damage: number = 20
 
   constructor(scene: GameScene, x: number, y: number, direction: integer) {
     super(scene, x + (16 * direction), y, 'slash');
@@ -31,10 +32,6 @@ export class EnemySlash extends EnemyAttack {
     if (this.lifetime < 0) {
       this.destroy();
     }
-  }
-
-  getDamage() {
-    return 1;
   }
 
   hitsSomething(): void { }
