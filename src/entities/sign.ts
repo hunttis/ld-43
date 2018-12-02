@@ -45,6 +45,7 @@ export class Sign extends Physics.Arcade.Sprite {
     this.textContent.y = this.signLocationY + this.signHeight / 2;
     this.textContent.setScrollFactor(0);
 
+    this.textBox.depth = 120;
     this.textContent.depth = 120;
 
     this.textBox.visible = false;
