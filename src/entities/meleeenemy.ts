@@ -39,7 +39,7 @@ export class MeleeEnemy extends Physics.Arcade.Sprite {
   }
 
   receiveHit(damage: number) {
-    console.log("Aarrr");
+    console.log('Aarrr! Got ', damage, ' damage');
   }
 
 }

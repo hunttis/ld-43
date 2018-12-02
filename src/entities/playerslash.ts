@@ -1,12 +1,14 @@
 import { Physics, Scene, Input } from 'phaser';
 import { GameScene } from '~/gameScene';
 import { Player } from './player';
+import { PlayerAttack } from './playerAttack';
 
-export class PlayerSlash extends Physics.Arcade.Sprite {
+export class PlayerSlash extends PlayerAttack {
   lifetime: number;
   body!: Physics.Arcade.Body;
   direction: integer;
   readyToDestroy: boolean = false;
+  damage: number = 20;
 
   constructor(scene: GameScene, private parent: Player, direction: integer) {
     super(scene, parent.x + (16 * direction), parent.y, 'slash');
@@ -33,7 +35,11 @@ export class PlayerSlash extends Physics.Arcade.Sprite {
     }
   }
 
-  getDamage() {
-    return 2;
+  hitsSomething(): void {
   }
+
+  doesThisCollideWithLevel(): boolean {
+    return false;
+  }
+
 }

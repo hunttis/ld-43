@@ -5,6 +5,7 @@ import { EnemySlash } from '~/entities/enemyslash';
 import { Bullet } from './entities/bullet';
 import { RangedEnemy } from './entities/rangedenemy';
 import { EnemyAttack } from './entities/enemyAttack';
+import { PlayerAttack } from './entities/playerAttack';
 
 export class GameScene extends Scene {
 
@@ -32,8 +33,11 @@ export class GameScene extends Scene {
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(0, 0, Number(this.layer.width), Number(this.layer.height));
     this.physics.add.collider(this.player, this.layer);
-    this.physics.add.collider(this.bullets, this.layer, bullet => {
-      bullet.destroy();
+    this.physics.add.overlap(this.bullets, this.layer, (bullet, tile) => {
+      const attack = bullet as PlayerAttack;
+      if (tile.collides && attack.doesThisCollideWithLevel()) {
+        attack.hitsSomething();
+      }
     });
 
     this.physics.add.overlap(this.enemyBullets, this.layer, (bullet, tile) => {
@@ -63,8 +67,9 @@ export class GameScene extends Scene {
     });
 
     this.physics.add.overlap(this.bullets, this.enemy, bullet => {
-      const playerBullet = bullet as Bullet;
-      this.enemy.receiveHit(playerBullet.getDamage());
+      const attack = bullet as PlayerAttack;
+      attack.hitsSomething();
+      this.enemy.receiveHit(attack.getDamage());
     });
 
     this.physics.add.overlap(this.bullets, this.rangedEnemy, bullet => {

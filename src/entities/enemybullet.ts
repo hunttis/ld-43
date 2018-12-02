@@ -36,7 +36,7 @@ export class EnemyBullet extends EnemyAttack {
       alpha: 0,
       x: this.x - (this.direction * 16),
       y: this.y + 8,
-      angle: 100,
+      angle: -100 * this.direction,
       onComplete: onCompleteHandler,
       onCompleteParams: [this]
     })
