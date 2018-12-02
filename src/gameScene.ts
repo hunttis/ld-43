@@ -22,7 +22,8 @@ export class GameScene extends Scene {
   signs!: GameObjects.Group;
   actionButtons!: GameObjects.Sprite;
 
-  nextLevelKey: Input.Keyboard.Key;
+  nextLevelKey!: Input.Keyboard.Key;
+  tonkSound!: Phaser.Sound.BaseSound;
 
   constructor() {
     super('GameScene');
@@ -41,7 +42,7 @@ export class GameScene extends Scene {
     this.enemies = this.add.group();
     this.signs = this.add.group();
     this.addObjectsToLevel();
-
+    this.tonkSound = this.sound.add('tonk');
 
     this.player = new Player(this, this.bullets, this.entrance);
     this.add.existing(this.player);
@@ -54,6 +55,7 @@ export class GameScene extends Scene {
     this.physics.add.overlap(this.bullets, this.layer, (bullet, tile) => {
       const attack = bullet as PlayerAttack;
       if (tile.collides && attack.doesThisCollideWithLevel()) {
+        this.tonkSound.play();
         attack.hitsSomething();
       }
     });
@@ -61,6 +63,7 @@ export class GameScene extends Scene {
     this.physics.add.overlap(this.enemyBullets, this.layer, (bullet, tile) => {
       const attack = bullet as EnemyAttack;
       if (tile.collides && attack.doesThisCollideWithLevel()) {
+        this.tonkSound.play();
         attack.hitsSomething();
       }
     })

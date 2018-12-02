@@ -6,7 +6,6 @@ import { GameScene } from './gameScene';
 import { StoryScene } from './storyScene';
 import GameScalePlugin from 'phaser-plugin-game-scale';
 import playerImage from './assets/animated/player.png';
-import playerNormalmap from './assets/player/player_n.png';
 import bow1 from './assets/bow1.mp3';
 import bow2 from './assets/bow2.mp3';
 import bow3 from './assets/bow3.mp3';
