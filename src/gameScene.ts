@@ -20,6 +20,7 @@ export class GameScene extends Scene {
   entrance!: GameObjects.Sprite;
   exit!: GameObjects.Sprite;
   signs!: GameObjects.Group;
+  actionButtons!: GameObjects.Sprite;
 
   constructor() {
     super('GameScene');
@@ -37,6 +38,7 @@ export class GameScene extends Scene {
     this.enemies = this.add.group();
     this.signs = this.add.group();
     this.addObjectsToLevel();
+
 
     this.player = new Player(this, this.bullets, this.entrance);
     this.add.existing(this.player);
@@ -79,6 +81,29 @@ export class GameScene extends Scene {
       attack.hitsSomething();
       enemy.receiveHit(attack.getDamage());
     });
+
+    this.actionButtons = this.add.sprite(-64, -64, 'actionbuttons');
+    this.actionButtons.setOrigin(0, 0);
+    this.actionButtons.setScale(1);
+    this.actionButtons.setScrollFactor(0);
+    this.add.tween({
+      targets: this.actionButtons,
+      x: 10,
+      y: 10,
+      duration: 1000,
+      ease: 'Cubic.easeInOut'
+    })
+    this.add.tween({
+      targets: this.actionButtons,
+      scaleX: 1.2,
+      scaleY: 1.2,
+      delay: 1000,
+      duration: 500,
+      ease: 'Cubic.easeInOut',
+      yoyo: true,
+      repeat: 1
+
+    })
   }
 
   addObjectsToLevel() {
