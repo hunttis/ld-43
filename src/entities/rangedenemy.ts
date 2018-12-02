@@ -82,4 +82,9 @@ export class RangedEnemy extends Enemy {
     });
   }
 
+  die(): void {
+    this.bowSprite.destroy();
+    this.destroy();
+  }
+
 }

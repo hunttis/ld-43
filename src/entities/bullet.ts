@@ -9,7 +9,7 @@ export class Bullet extends PlayerAttack {
 
   scene!: GameScene
   body!: Physics.Arcade.Body
-  damage: number = 10;
+  damage: number = 100;
 
   constructor(scene: GameScene, parent: GameObjects.Sprite, private direction: number) {
     super(scene, parent.x, parent.y, 'arrow');
