@@ -25,7 +25,7 @@ class InitScene extends Scene {
   }
 
   create() {
-    this.scene.start('GameScene', { levelNumber: 0 });
+    this.scene.start('GameScene', { levelNumber: 1 });
 
     const playerJumping = {
       key: 'playerJumping',
