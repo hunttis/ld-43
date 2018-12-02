@@ -61,14 +61,19 @@ export class GameScene extends Scene {
         this.effects.dustPuff(attack.x, attack.y);
         attack.hitsSomething();
       }
+      if (tile.collides) {
+        this.effects.dustPuff(attack.x, attack.y);
+      }
     });
 
     this.physics.add.overlap(this.enemyBullets, this.layer, (bullet, tile) => {
       const attack = bullet as EnemyAttack;
       if (tile.collides && attack.doesThisCollideWithLevel()) {
         this.tonkSound.play();
-        this.effects.dustPuff(attack.x, attack.y);
         attack.hitsSomething();
+      }
+      if (tile.collides) {
+        this.effects.dustPuff(attack.x, attack.y);
       }
     })
 
