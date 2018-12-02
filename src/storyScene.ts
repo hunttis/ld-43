@@ -2,10 +2,20 @@ import { GameObjects, Scene, Input } from "phaser";
 
 export class StoryScene extends Scene {
 
-  lines: string[] = [
-    'Champion!',
-    'What do you think you are doing?',
-    'I will have your shield!'
+  levelNumber!: integer;
+
+  lines: string[][] = [
+    // 1
+    [
+      'Champion!',
+      'What do you think you are doing?',
+      'I will have your shield!'
+    ],
+
+    // 2
+    [
+      'Fnorp'
+    ]
   ];
 
   currentLine: integer = 0;
@@ -17,6 +27,10 @@ export class StoryScene extends Scene {
 
   constructor() {
     super('StoryScene');
+  }
+
+  init(data: any) {
+    this.levelNumber = data.levelNumber;
   }
 
   create() {
@@ -58,16 +72,16 @@ export class StoryScene extends Scene {
     graphics.lineStyle(4, 0x444444);
     graphics.strokeRect(deityWidth + paddingSides, 300, screenWidth - deityWidth - 32, screenHeight - 332);
 
-    this.textBox = this.add.text(deityWidth + paddingSides * 2, 300 + paddingSides, this.lines[0], { wordWrap: { width: textArea } });
+    this.textBox = this.add.text(deityWidth + paddingSides * 2, 300 + paddingSides, this.lines[this.levelNumber][0], { wordWrap: { width: textArea } });
   }
 
   update() {
     if (Input.Keyboard.JustDown(this.nextLineKey)) {
       this.currentLine++;
       if (this.currentLine >= this.lines.length) {
-        this.scene.start('GameScene');
+        this.scene.start('GameScene', { levelNumber: this.levelNumber + 1 });
       } else {
-        this.textBox.text = this.lines[this.currentLine];
+        this.textBox.text = this.lines[this.levelNumber][this.currentLine];
       }
     }
 

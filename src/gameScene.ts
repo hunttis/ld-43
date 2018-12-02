@@ -10,6 +10,7 @@ import { Sign } from './entities/sign';
 
 export class GameScene extends Scene {
 
+  levelNumber!: integer;
   level!: Phaser.Tilemaps.Tilemap;
   player!: Player;
   bullets!: GameObjects.Group;
@@ -23,6 +24,10 @@ export class GameScene extends Scene {
 
   constructor() {
     super('GameScene');
+  }
+
+  init(data: any) {
+    this.levelNumber = data.levelNumber;
   }
 
   create() {
@@ -111,7 +116,9 @@ export class GameScene extends Scene {
   }
 
   loadAndCreateMap() {
-    const map = this.make.tilemap({ key: 'level' });
+    console.log(this.levelNumber);
+    const levelKey = 'level' + this.levelNumber;
+    const map = this.make.tilemap({ key: levelKey });
     const tileset = map.addTilesetImage(
       'tiles',
       'tiles',
@@ -146,6 +153,14 @@ export class GameScene extends Scene {
     this.enemyBullets.getChildren().forEach(bullet => {
       bullet.update();
     })
+
+    if (this.exit.getBounds().contains(this.player.getCenter().x, this.player.getCenter().y)) {
+      this.playerExits();
+    }
+  }
+
+  playerExits() {
+    this.scene.start('StoryScene', { levelNumber: this.levelNumber });
   }
 
 }
