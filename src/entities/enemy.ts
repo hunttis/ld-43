@@ -10,7 +10,10 @@ export abstract class Enemy extends Physics.Arcade.Sprite {
   abstract die(): void;
 
   receiveHit(damage: number) {
-    this.smackSound.play();
+    if (!this.smackSound.isPlaying) {
+      this.smackSound.play();
+    }
+
     this.health -= damage;
     if (this.health <= 0) {
       this.die();
