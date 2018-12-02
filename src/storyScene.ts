@@ -4,6 +4,18 @@ export class StoryScene extends Scene {
 
   levelNumber!: integer;
 
+  deities: string[] = [
+    'hunttis'
+  ]
+
+  moods: string[][] = [
+    [
+      'angry',
+      'normal',
+      'smirk'
+    ]
+  ]
+
   lines: string[][] = [
     // 1
     [
@@ -19,7 +31,9 @@ export class StoryScene extends Scene {
   ];
 
   currentLine: integer = 0;
-  deity!: GameObjects.Sprite;
+  normaldeity!: GameObjects.Sprite;
+  angrydeity!: GameObjects.Sprite;
+  smirkdeity!: GameObjects.Sprite;
 
   textBox!: GameObjects.Text;
 
@@ -36,8 +50,11 @@ export class StoryScene extends Scene {
   create() {
     this.createBackground();
     this.nextLineKey = this.input.keyboard.addKey(Input.Keyboard.KeyCodes.SPACE);
-    this.createDeityPortrait();
+    this.createDeityPortraits();
     this.createTextBox();
+
+    this.showProperDeity();
+
   }
 
   createBackground() {
@@ -47,23 +64,35 @@ export class StoryScene extends Scene {
     graphics.setScrollFactor(0);
   }
 
-  createDeityPortrait() {
-    this.deity = this.add.sprite(0, Number(this.game.config.height), 'deity');
-    this.deity.displayOriginX = 0;
-    this.deity.displayOriginY = this.deity.height;
+  createDeityPortraits() {
+
+    console.log(this.deities);
+    this.normaldeity = this.add.sprite(0, Number(this.game.config.height), 'deity_normal_' + this.deities[this.levelNumber]);
+    this.normaldeity.displayOriginX = 0;
+    this.normaldeity.displayOriginY = this.normaldeity.height;
+
+    this.angrydeity = this.add.sprite(0, Number(this.game.config.height), 'deity_angry_' + this.deities[this.levelNumber]);
+    this.angrydeity.displayOriginX = 0;
+    this.angrydeity.displayOriginY = this.angrydeity.height;
+
+    this.smirkdeity = this.add.sprite(0, Number(this.game.config.height), 'deity_smirk_' + this.deities[this.levelNumber]);
+    this.smirkdeity.displayOriginX = 0;
+    this.smirkdeity.displayOriginY = this.smirkdeity.height;
+
     const graphics = this.add.graphics();
     graphics.lineStyle(4, 0x442288);
 
     graphics.strokeRect(0,
-      Number(this.game.config.height) - this.deity.height,
-      this.deity.width,
-      this.deity.height);
+      Number(this.game.config.height) - this.normaldeity.height,
+      this.normaldeity.width,
+      this.normaldeity.height);
   }
+
 
   createTextBox() {
     const graphics = this.add.graphics();
     const paddingSides = 16;
-    const deityWidth = this.deity.width;
+    const deityWidth = this.normaldeity.width;
     const screenWidth = Number(this.game.config.width);
     const screenHeight = Number(this.game.config.height);
     const textArea = screenWidth - deityWidth - paddingSides * 2;
@@ -75,12 +104,29 @@ export class StoryScene extends Scene {
     this.textBox = this.add.text(deityWidth + paddingSides * 2, 300 + paddingSides, this.lines[this.levelNumber][0], { wordWrap: { width: textArea } });
   }
 
+  showProperDeity() {
+    if (this.moods[this.levelNumber][this.currentLine] === 'angry') {
+      this.angrydeity.visible = true;
+      this.normaldeity.visible = false;
+      this.smirkdeity.visible = false;
+    } else if (this.moods[this.levelNumber][this.currentLine] === 'normal') {
+      this.angrydeity.visible = false;
+      this.normaldeity.visible = true;
+      this.smirkdeity.visible = false;
+    } else if (this.moods[this.levelNumber][this.currentLine] === 'smirk') {
+      this.angrydeity.visible = false;
+      this.normaldeity.visible = false;
+      this.smirkdeity.visible = true;
+    }
+  }
+
   update() {
     if (Input.Keyboard.JustDown(this.nextLineKey)) {
       this.currentLine++;
-      if (this.currentLine >= this.lines.length) {
+      if (this.currentLine > this.lines.length) {
         this.scene.start('GameScene', { levelNumber: this.levelNumber + 1 });
       } else {
+        this.showProperDeity();
         this.textBox.text = this.lines[this.levelNumber][this.currentLine];
       }
     }
