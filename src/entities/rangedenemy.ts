@@ -1,9 +1,9 @@
 import { Physics, Scene, Input } from 'phaser';
 import { GameScene } from '~/gameScene'
 import { EnemyBullet } from './enemybullet';
+import { Enemy } from './enemy';
 
-export class RangedEnemy extends Physics.Arcade.Sprite {
-  scene!: GameScene;
+export class RangedEnemy extends Enemy {
   seesPlayer: boolean = false;
   weaponCooldown: number = 0;
   maxWeaponCooldown: number = 2500;
@@ -36,10 +36,6 @@ export class RangedEnemy extends Physics.Arcade.Sprite {
     const bullet = new EnemyBullet(this.scene, this.x, this.y, direction);
     this.scene.add.existing(bullet);
     this.scene.enemyBullets.add(bullet);
-  }
-
-  receiveHit(damage: number) {
-    console.log("Aarrr");
   }
 
 }

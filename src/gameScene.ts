@@ -3,6 +3,7 @@ import { Player } from '~/entities/player';
 import { MeleeEnemy } from '~/entities/meleeenemy';
 import { Bullet } from './entities/bullet';
 import { RangedEnemy } from './entities/rangedenemy';
+import { Enemy } from './entities/enemy';
 import { EnemyAttack } from './entities/enemyAttack';
 import { PlayerAttack } from './entities/playerAttack';
 
@@ -13,8 +14,7 @@ export class GameScene extends Scene {
   bullets!: GameObjects.Group;
   cursors!: Input.Keyboard.CursorKeys;
   layer!: Phaser.Tilemaps.StaticTilemapLayer;
-  enemy!: MeleeEnemy;
-  rangedEnemy!: RangedEnemy;
+  enemies!: GameObjects.Group;
   enemyBullets!: GameObjects.Group;
 
   constructor() {
@@ -26,6 +26,9 @@ export class GameScene extends Scene {
     this.level = this.loadAndCreateMap();
     this.bullets = this.add.group();
     this.enemyBullets = this.add.group();
+    this.enemies = this.add.group();
+    this.addEnemies();
+
     this.player = new Player(this, this.bullets);
     this.add.existing(this.player);
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -48,13 +51,9 @@ export class GameScene extends Scene {
 
     const light = this.lights.addLight(Number(this.game.config.width) / 2, 300, 5000);
     this.lights.enable().setAmbientColor(0xaaaaaa);
-    this.enemy = new MeleeEnemy(this);
-    this.add.existing(this.enemy);
-    this.rangedEnemy = new RangedEnemy(this);
-    this.add.existing(this.rangedEnemy);
     this.physics.add.collider(this.player, this.layer);
-    this.physics.add.collider(this.enemy, this.layer);
-    this.physics.add.collider(this.rangedEnemy, this.layer);
+
+    this.physics.add.collider(this.enemies, this.layer);
 
     this.physics.add.overlap(this.enemyBullets, this.player, bullet => {
       const enemyAttack = bullet as EnemyAttack;
@@ -62,16 +61,23 @@ export class GameScene extends Scene {
       enemyAttack.hitsSomething();
     });
 
-    this.physics.add.overlap(this.bullets, this.enemy, bullet => {
+    this.physics.add.overlap(this.bullets, this.enemies, (bullet, target) => {
       const attack = bullet as PlayerAttack;
+      const enemy = target as Enemy;
       attack.hitsSomething();
-      this.enemy.receiveHit(attack.getDamage());
+      enemy.receiveHit(attack.getDamage());
     });
 
-    this.physics.add.overlap(this.bullets, this.rangedEnemy, bullet => {
-      const playerBullet = bullet as Bullet;
-      this.rangedEnemy.receiveHit(playerBullet.getDamage());
-    });
+  }
+
+  addEnemies() {
+    const enemy = new MeleeEnemy(this);
+    this.add.existing(enemy);
+    this.enemies.add(enemy);
+
+    const rangedEnemy = new RangedEnemy(this);
+    this.add.existing(rangedEnemy);
+    this.enemies.add(rangedEnemy);
   }
 
   createBackground() {
@@ -104,8 +110,9 @@ export class GameScene extends Scene {
     for (const bullet of this.bullets.getChildren()) {
       bullet.update();
     }
-    this.enemy.update();
-    this.rangedEnemy.update();
+    for (const enemy of this.enemies.getChildren()) {
+      enemy.update();
+    }
 
     this.enemyBullets.getChildren().forEach(bullet => {
       bullet.update();

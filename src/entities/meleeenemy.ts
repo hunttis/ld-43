@@ -1,9 +1,9 @@
 import { Physics, Scene, Input } from 'phaser';
 import { GameScene } from '~/gameScene'
 import { EnemySlash } from './enemyslash';
+import { Enemy } from './enemy';
 
-export class MeleeEnemy extends Physics.Arcade.Sprite {
-  scene!: GameScene;
+export class MeleeEnemy extends Enemy {
   seesPlayer: boolean = false;
   slashCooldown: number = 0;
   maxSlashcooldown: number = 2000;
@@ -36,10 +36,6 @@ export class MeleeEnemy extends Physics.Arcade.Sprite {
     const slash = new EnemySlash(this.scene, this.x, this.y, direction);
     this.scene.add.existing(slash);
     this.scene.enemyBullets.add(slash);
-  }
-
-  receiveHit(damage: number) {
-    console.log('Aarrr! Got ', damage, ' damage');
   }
 
 }
