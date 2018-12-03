@@ -225,7 +225,7 @@ export class StoryScene extends Scene {
 
   update() {
     console.log('Level story: ', this.levelNumber);
-    if (Input.Keyboard.JustDown(this.nextLineKey)) {
+    if ((this.levelNumber === 0 && Input.Keyboard.JustDown(this.nextLineKey)) || this.levelNumber !== 0 && Input.Keyboard.JustUp(this.nextLineKey)) {
       console.log('currentLine', this.currentLine);
       this.currentLine++;
       if (this.currentLine >= this.lines[this.levelNumber].length) {
