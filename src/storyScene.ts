@@ -140,6 +140,7 @@ export class StoryScene extends Scene {
   textBox!: GameObjects.Text;
 
   nextLineKey!: Input.Keyboard.Key;
+  emitter!: GameObjects.Particles.ParticleEmitter;
 
   constructor() {
     super('StoryScene');
@@ -156,6 +157,22 @@ export class StoryScene extends Scene {
     this.createDeityPortraits();
     this.createTextBox();
     this.showProperDeity();
+
+    const shape = new Phaser.Geom.Rectangle(0,
+      Number(this.game.config.height) - this.normaldeity.height,
+      this.normaldeity.width,
+      this.normaldeity.height)
+
+    console.log(shape);
+    const particles = this.add.particles('spark');
+    this.emitter = particles.createEmitter({
+      speed: { min: -100, max: 100 },
+      scale: { start: 2, end: 0 },
+      blendMode: 'SCREEN',
+      emitZone: { type: 'edge', source: shape, quantity: 50 },
+      rotate: 2
+    });
+    this.emitter.stop();
   }
 
   createBackground() {
@@ -224,7 +241,9 @@ export class StoryScene extends Scene {
   }
 
   update() {
-    console.log('Level story: ', this.levelNumber);
+    if (this.levelNumber !== 7) {
+      this.emitter.explode(10);
+    }
     if ((this.levelNumber === 0 && Input.Keyboard.JustDown(this.nextLineKey)) || this.levelNumber !== 0 && Input.Keyboard.JustUp(this.nextLineKey)) {
       console.log('currentLine', this.currentLine);
       this.currentLine++;
