@@ -14,7 +14,6 @@ export class GameScene extends Scene {
   level!: Phaser.Tilemaps.Tilemap;
   player!: Player;
   bullets!: GameObjects.Group;
-  cursors!: Input.Keyboard.CursorKeys;
   layer!: Phaser.Tilemaps.StaticTilemapLayer;
   enemies!: GameObjects.Group;
   enemyBullets!: GameObjects.Group;
@@ -47,7 +46,6 @@ export class GameScene extends Scene {
 
     this.player = new Player(this, this.bullets, this.entrance);
     this.add.existing(this.player);
-    this.cursors = this.input.keyboard.createCursorKeys();
     this.nextLevelKey = this.input.keyboard.addKey(Input.Keyboard.KeyCodes.N);
 
     this.cameras.main.startFollow(this.player);
@@ -118,7 +116,6 @@ export class GameScene extends Scene {
       ease: 'Cubic.easeInOut',
       yoyo: true,
       repeat: 1
-
     })
 
     this.effects = new Effects(this);
