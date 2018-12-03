@@ -43,6 +43,7 @@ export class Player extends Physics.Arcade.Sprite {
     super(scene, entrance.x, entrance.y + 8, 'player', 0);
 
     scene.physics.world.enableBody(this, 0);
+
     this.shootKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.C);
     this.meleeKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.Z);
     this.shieldKey = scene.input.keyboard.addKey(Input.Keyboard.KeyCodes.X);
@@ -71,6 +72,14 @@ export class Player extends Physics.Arcade.Sprite {
     this.paintHealthBar();
 
     this.depth = 89;
+
+    this.shield = this.scene.levelNumber < 3;
+    this.rangeAttack = this.scene.levelNumber < 4;
+    this.doubleJump = this.scene.levelNumber < 5;
+  }
+
+  init() {
+    this.setVelocityX(0);
   }
 
   update() {
