@@ -18,9 +18,12 @@ import thwup from './assets/thwup.mp3';
 import hop1 from './assets/hop1.mp3';
 import hop2 from './assets/hop2.mp3';
 import hop3 from './assets/hop3.mp3';
+import music from './assets/sacrifices.mp3';
 
 
 class InitScene extends Scene {
+  music!: Phaser.Sound.BaseSound;
+
   preload() {
     for (const [name, path] of Object.entries(assets)) {
       console.log('loaded', path, '->', name);
@@ -46,9 +49,13 @@ class InitScene extends Scene {
     this.load.audio('hop1', hop1);
     this.load.audio('hop2', hop2);
     this.load.audio('hop3', hop3);
+    this.load.audio('music', music);
   }
 
   create() {
+    this.music = this.sound.add('music');
+    this.music.play('', { loop: true });
+
     this.scene.start('MenuScene', { levelNumber: 0 });
 
     const playerJumping = {
