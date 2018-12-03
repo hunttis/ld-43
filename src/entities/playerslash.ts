@@ -8,7 +8,7 @@ export class PlayerSlash extends PlayerAttack {
   body!: Physics.Arcade.Body;
   direction: integer;
   readyToDestroy: boolean = false;
-  damage: number = 100;
+  damage: number = 50;
   thwupSound: Phaser.Sound.BaseSound;
 
   constructor(scene: GameScene, private parent: Player, direction: integer) {

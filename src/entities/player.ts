@@ -76,6 +76,8 @@ export class Player extends Physics.Arcade.Sprite {
     this.shield = this.scene.levelNumber < 3;
     this.rangeAttack = this.scene.levelNumber < 5;
     this.doubleJump = this.scene.levelNumber < 6;
+
+    this.setSize(24, 32);
   }
 
   init() {
