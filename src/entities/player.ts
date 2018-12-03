@@ -122,7 +122,7 @@ export class Player extends Physics.Arcade.Sprite {
         this.hopSound3.play();
       }
       this.scene.effects.dustPuff(this.x, this.y + 16);
-      this.setVelocityY(-200);
+      this.setVelocityY(-210);
     }
     if (Input.Keyboard.JustDown(this.shootKey)) {
       if (this.rangeAttack) {
