@@ -118,7 +118,33 @@ export class GameScene extends Scene {
       repeat: 1
     })
 
+    if (this.levelNumber >= 3) { // shield out
+      this.addCrossOut(10 + 32 + 16, 10 + 16, 3000);
+    }
+    if (this.levelNumber >= 5) { // bow out
+      this.addCrossOut(10 + 32 + 16 + 32, 10 + 16, 3500);
+    }
+    if (this.levelNumber >= 6) { // doublejump out
+      this.addCrossOut(10 + 32 + 16 + 32 + 32, 10 + 16, 4000);
+    }
+
     this.effects = new Effects(this);
+  }
+
+  addCrossOut(x: number, y: number, delay: number) {
+    const crossOut = this.add.sprite(x, y, 'cross');
+    crossOut.setOrigin(0.5);
+    crossOut.alpha = 0;
+    crossOut.setScale(20)
+    crossOut.setScrollFactor(0);
+    this.add.tween({
+      targets: crossOut,
+      scaleX: 1,
+      scaleY: 1,
+      alpha: 1,
+      duration: 500,
+      delay: delay,
+    })
   }
 
   addObjectsToLevel() {
