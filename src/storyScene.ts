@@ -5,35 +5,58 @@ export class StoryScene extends Scene {
   levelNumber!: integer;
 
   deities: string[] = [
-    'exo',
-    'hunttis',
-    'exo',
-    'hunttis',
-    'exo',
-    'hunttis',
-    'exo',
-    'hunttis',
-    'exo'
+    'exo', // 1
+    'hunttis', // 2
+    'exo', // 3
+    'hunttis', // 4
+    'exo', // 5
+    'hunttis', // 6
+    'exo', // 7
   ]
 
   moods: string[][] = [
-    [
+    [ // 1
       'angry',
       'normal',
       'smirk',
       'angry'
     ],
-    [
+    [ // 2
       'angry',
       'normal',
       'smirk',
       'smirk'
     ],
-    ['angry'],
-    ['angry'],
-    ['angry'],
-    ['angry'],
-    ['angry']
+    [ // 3
+      'angry',
+      'normal',
+      'smirk',
+      'angry',
+      'smirk'
+    ],
+    [ // 4
+      'angry',
+      'angry',
+      'smirk',
+      'normal',
+      'smirk'
+    ],
+    [ // 5
+      'angry',
+      'angry',
+      'angry',
+      'smirk'
+    ],
+    [ // 6
+      'angry',
+      'normal',
+      'smirk',
+      'smirk'
+    ],
+    [ // 7
+      'normal',
+      'normal'
+    ]
   ]
 
   lines: string[][] = [
@@ -54,25 +77,51 @@ export class StoryScene extends Scene {
     ],
 
     // 2 - You may take a vacation
-    ['Champion!'],
+    [
+      'Champion!',
+      'You\'ve been very effective!',
+      'You may go home and rest for a while..'
+    ],
 
     // 3 - Want to find fluffy? we'll take shield
-    ['Gimme shield?'],
+    [
+      'Champion!',
+      'Are you thinking of going after your pet?',
+      'We have more killing you need to do!',
+      'Looks like you\'re going to defy us!',
+      'For that transgression, I will have your shield!'
+    ],
 
     // 4 - Shield still gone?
-    ['Miss your shield?'],
+    [
+      'Champion!',
+      'You\'re going even further from the battlefield!',
+      'Miss your shield?',
+      'If you continue on this foolish quest..',
+      '..we will take more from you'
+    ],
 
     // 5 - bow gone!
-    ['RRAAAA'],
+    [
+      'Champion!',
+      'How dare you?',
+      'We need you to kill different people now! Not these broken warriors!',
+      'Fine! We will have your bow!'
+    ],
 
     // 6 - Double jump taken
-    ['Gimme double jump'],
+    [
+      'Champion!',
+      'Still on this foolish quest?!',
+      'Do you like those fancy shoes of double jumping?',
+      'We will have them back, too!'
+    ],
 
-    // 7 - Near the end
-    ['Fine!'],
-
-    // 8 - Ending
-    ['End']
+    // 7 - Ending
+    [
+      'You\'ve rescued your dear fluffy!',
+      'Who needs those arrogant higher beings when you have a puppy!'
+    ]
   ];
 
   currentLine: integer = 0;
@@ -171,7 +220,11 @@ export class StoryScene extends Scene {
       console.log('currentLine', this.currentLine);
       this.currentLine++;
       if (this.currentLine >= this.lines[this.levelNumber].length) {
-        this.scene.start('GameScene', { levelNumber: this.levelNumber });
+        if (this.levelNumber === 7) {
+          this.scene.start('MenuScene');
+        } else {
+          this.scene.start('GameScene', { levelNumber: this.levelNumber });
+        }
       } else {
         this.showProperDeity();
         this.textBox.text = this.lines[this.levelNumber][this.currentLine];
