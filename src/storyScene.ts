@@ -183,8 +183,6 @@ export class StoryScene extends Scene {
   }
 
   createDeityPortraits() {
-
-    console.log(this.deities);
     this.normaldeity = this.add.sprite(0, Number(this.game.config.height), 'deity_normal_' + this.deities[this.levelNumber]);
     this.normaldeity.displayOriginX = 0;
     this.normaldeity.displayOriginY = this.normaldeity.height;
@@ -204,10 +202,7 @@ export class StoryScene extends Scene {
       Number(this.game.config.height) - this.normaldeity.height,
       this.normaldeity.width,
       this.normaldeity.height);
-
-    console.log('lines this time', this.lines[this.levelNumber].length);
   }
-
 
   createTextBox() {
     const graphics = this.add.graphics();
@@ -222,6 +217,10 @@ export class StoryScene extends Scene {
     graphics.strokeRect(deityWidth + paddingSides, 300, screenWidth - deityWidth - 32, screenHeight - 332);
 
     this.textBox = this.add.text(deityWidth + paddingSides * 2, 300 + paddingSides, this.lines[this.levelNumber][0], { wordWrap: { width: textArea } });
+
+    const instructions = this.add.text(0, 0, 'Press space to proceed')
+    instructions.y = screenHeight - instructions.height - 1;
+    instructions.x = screenWidth - instructions.width - 8;
   }
 
   showProperDeity() {
