@@ -129,6 +129,9 @@ export class GameScene extends Scene {
     }
 
     this.effects = new Effects(this);
+    if (this.levelNumber === 2) {
+      this.effects.rain();
+    }
   }
 
   addCrossOut(x: number, y: number, delay: number) {
@@ -172,9 +175,15 @@ export class GameScene extends Scene {
   createBackground() {
     var graphics = this.add.graphics();
 
-    graphics.fillGradientStyle(0x5ffaff, 0x56faff, 0x5555ff, 0x5555ff, 1);
-    graphics.fillRect(0, 0, Number(this.game.config.width), Number(this.game.config.height));
-    graphics.setScrollFactor(0);
+    if (this.levelNumber !== 2) {
+      graphics.fillGradientStyle(0x5ffaff, 0x56faff, 0x5555ff, 0x5555ff, 1);
+      graphics.fillRect(0, 0, Number(this.game.config.width), Number(this.game.config.height));
+      graphics.setScrollFactor(0);
+    } else {
+      graphics.fillGradientStyle(0x1faaaf, 0x16aaaf, 0x1505af, 0x1505af, 1);
+      graphics.fillRect(0, 0, Number(this.game.config.width), Number(this.game.config.height));
+      graphics.setScrollFactor(0);
+    }
   }
 
   loadAndCreateMap() {

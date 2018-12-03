@@ -57,13 +57,26 @@ export class Effects {
     });
     this.dustEmitter.stop();
 
+    const rainConfig = {
+      width: Number(this.scene.game.config.width),
+      height: 10,
+      x: 0, y: 0,
+      getPoints: (quantity: number) => {
+        const points = [];
+        console.log('points');
+        for (let i = 0; i < quantity; i++) {
+          points.push(Math.round(Math.random() * Number(this.scene.game.config.width)));
+        }
+        return points;
+      }
+    }
     this.rainEmitter = this.rainParticles.createEmitter({
       lifespan: 2000,
       gravityY: 300,
-      tint: 0x00aa00,
-      scale: { start: 2, end: 1 },
-      alpha: 0,
-      speedX: { min: -100, max: 100 },
+      frequency: 1,
+      x: { min: 0, max: Number(this.scene.game.config.width) * 2 },
+      scale: { min: 0.2, max: 0.8 },
+      speedX: { min: -10, max: 10 },
       speedY: { min: -100, max: 100 },
     });
     this.rainEmitter.stop();
@@ -79,5 +92,9 @@ export class Effects {
 
   dustPuff(x: number, y: number) {
     this.dustEmitter.explode(10, x, y);
+  }
+
+  rain() {
+    this.rainEmitter.start();
   }
 }
