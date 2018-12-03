@@ -5,27 +5,33 @@ export class StoryScene extends Scene {
   levelNumber!: integer;
 
   deities: string[] = [
-    'exo', // 1
-    'hunttis', // 2
-    'exo', // 3
-    'hunttis', // 4
-    'exo', // 5
-    'hunttis', // 6
-    'exo', // 7
+    'exo', // 0
+    'hunttis', // 1
+    'exo', // 2
+    'hunttis', // 3
+    'exo', // 4
+    'hunttis', // 5
+    'exo', // 6
+    'fluffy', // 7
   ]
 
   moods: string[][] = [
-    [ // 1
+    [ // 0
       'angry',
       'normal',
       'smirk',
       'angry'
     ],
-    [ // 2
+    [ // 1
       'angry',
       'normal',
       'smirk',
       'smirk'
+    ],
+    [ // 2
+      'angry',
+      'smirk',
+      'normal'
     ],
     [ // 3
       'angry',
@@ -54,6 +60,7 @@ export class StoryScene extends Scene {
       'smirk'
     ],
     [ // 7
+      'normal',
       'normal',
       'normal'
     ]
@@ -119,8 +126,9 @@ export class StoryScene extends Scene {
 
     // 7 - Ending
     [
-      'You\'ve rescued your dear fluffy!',
-      'Who needs those arrogant higher beings when you have a puppy!'
+      'Bark bark! (You found me!)',
+      'Woof! (Who needs those arrogant higher beings when you have a puppy like me!)',
+      '(Congrats and thanks for playing! Press space to return to main menu)'
     ]
   ];
 
@@ -216,6 +224,7 @@ export class StoryScene extends Scene {
   }
 
   update() {
+    console.log('Level story: ', this.levelNumber);
     if (Input.Keyboard.JustDown(this.nextLineKey)) {
       console.log('currentLine', this.currentLine);
       this.currentLine++;
